@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../screens/SignIn.dart';
+import '../screens/LoginScreen.dart';
 
 class SplashController extends GetxController {
   @override
@@ -9,10 +9,11 @@ class SplashController extends GetxController {
     super.onInit();
     initSplash();
   }
+
   Future<void> initSplash() async {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    await Future.delayed(Duration(seconds: 3));
-    Get.off(() => SignIn());
+    await Future.delayed(Duration(seconds: 4));
+    Get.off(() => LoginScreen());
   }
 
   @override
