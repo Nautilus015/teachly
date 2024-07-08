@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SignIn extends StatelessWidget {
+class SignupScreen extends StatelessWidget {
   TextEditingController emailvalue = TextEditingController();
   TextEditingController passvalue = TextEditingController();
   TextEditingController phonevalue = TextEditingController();
   bool _validate = false;
   bool light = true;
 
-  SignIn({super.key});
+  SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class SignIn extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/images/designone.png'),
+                  image: AssetImage('assets/images/designtwo.png'),
                   fit: BoxFit.cover)),
         ),
         Padding(
@@ -28,8 +28,48 @@ class SignIn extends StatelessWidget {
               children: [
                 SizedBox(height: 16),
                 Text(
-                  'Sign In',
+                  'Sign Up',
                   style: TextStyle(color: Colors.black, fontSize: 40),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                TextField(
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    errorText: _validate ? "phone Can't Be Empty" : null,
+                    hintText: 'User Name',
+                    hintStyle: TextStyle(color: Colors.grey.shade400),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue, width: 1.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue, width: 1.0),
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue, width: 1.0),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                TextField(
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    errorText: _validate ? "phone Can't Be Empty" : null,
+                    hintText: 'Email',
+                    hintStyle: TextStyle(color: Colors.grey.shade400),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue, width: 1.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue, width: 1.0),
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue, width: 1.0),
+                    ),
+                  ),
                 ),
                 SizedBox(height: 16),
                 TextField(
@@ -37,7 +77,7 @@ class SignIn extends StatelessWidget {
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     errorText: _validate ? "phone Can't Be Empty" : null,
-                    hintText: 'Phone Number',
+                    hintText: 'Password',
                     hintStyle: TextStyle(color: Colors.grey.shade400),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blue, width: 1.0),
@@ -56,7 +96,7 @@ class SignIn extends StatelessWidget {
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     errorText: _validate ? "Password Can't Be Empty" : null,
-                    hintText: 'Password',
+                    hintText: 'Confirm Password',
                     hintStyle: TextStyle(color: Colors.grey.shade400),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blue, width: 1.0),
@@ -68,37 +108,6 @@ class SignIn extends StatelessWidget {
                       borderSide: BorderSide(color: Colors.blue, width: 1.0),
                     ),
                   ),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 15,
-                      child: Transform.scale(
-                        scale: 0.8,
-                        child: Switch(
-                          // This bool value toggles the switch.
-                          value: light,
-                          activeColor: Colors.blue,
-                          onChanged: (bool value) {
-                            // This is called when the user toggles the switch.
-                          },
-                        ),
-                      ),
-                    ),
-                    Expanded(flex: 25, child: Text('Remind Me')),
-                    Expanded(
-                      flex: 60,
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                            onPressed: () {},
-                            child: Text('Forgot Password?',
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                ))),
-                      ),
-                    ),
-                  ],
                 ),
                 SizedBox(height: 16),
                 ElevatedButton(
@@ -114,7 +123,7 @@ class SignIn extends StatelessWidget {
                     // Add your onPressed logic here
                   },
                   child: Text(
-                    'Login',
+                    'Register',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 25,
@@ -139,7 +148,7 @@ class SignIn extends StatelessWidget {
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18),
-                            'Sign Up'),
+                            'Login'),
                       ),
                     ),
                   ],
