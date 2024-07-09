@@ -22,7 +22,23 @@ class SignupController extends GetxController {
     } else if (confirmPassValue.text.isEmpty) {
       confirmPassValidate = true;
       update();
-    } else {
+    }else if(passValue.text!=confirmPassValue.text){
+      Get.showSnackbar(
+        GetSnackBar(
+          titleText: Text('Try Again',style: TextStyle(
+              fontSize: 20,
+              color: Colors.white
+          ),),
+          messageText: Text('Password Not Matched!',style: TextStyle(
+              fontSize: 20,
+              color: Colors.white
+          )),
+          icon: const Icon(Icons.password,color: Colors.white,),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    }
+    else {
       try {
         await auth.createUserWithEmailAndPassword(
             email: emailValue.text, password: passValue.text);
