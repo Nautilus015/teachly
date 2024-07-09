@@ -1,5 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:teachly/screens/LoginScreen.dart';
 
 class bottomnavScreen extends StatelessWidget {
   const bottomnavScreen({super.key});
@@ -12,8 +14,12 @@ class bottomnavScreen extends StatelessWidget {
         color: Colors.blue,
         animationDuration: Duration(milliseconds: 500),
         items: [
-        Icon(Icons.home,
-        color: Colors.white,),
+        InkWell(onTap: (){
+          Get.to(()=>LoginScreen());
+        },
+          child: Icon(Icons.home,
+          color: Colors.white,),
+        ),
         Icon(Icons.favorite,
             color: Colors.white),
         Icon(Icons.search,
