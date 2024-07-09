@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teachly/controllers/LoginController.dart';
 import 'package:teachly/screens/SignupScreen.dart';
+import 'forgotpwScreen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -104,7 +105,9 @@ class LoginScreen extends StatelessWidget {
                               child: Align(
                                 alignment: Alignment.centerRight,
                                 child: TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Get.to(()=>forgotpwScreen());
+                                    },
                                     child: Text('Forgot Password?',
                                         style: TextStyle(
                                           color: Colors.blue,

@@ -4,17 +4,19 @@ import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
 import 'package:teachly/screens/LoginScreen.dart';
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: FirebaseOptions(
-          apiKey: "AIzaSyA-Xjr-fhsIC9L9P-ejWW8Y2_hkemt-B5o",
-          authDomain: "teachly-78da2.firebaseapp.com",
-          projectId: "teachly-78da2",
-          storageBucket: "teachly-78da2.appspot.com",
-          messagingSenderId: "864379378912",
-          appId: "1:864379378912:web:de879150145e98a02c0485",
-          measurementId: "G-GP39Z4LW72"));
+          apiKey: "AIzaSyDrGYF01YTxxmR4ohopJruyqVgIrTyDVe8",
+          authDomain: "teachly-6d7d6.firebaseapp.com",
+          projectId: "teachly-6d7d6",
+          storageBucket: "teachly-6d7d6.appspot.com",
+          messagingSenderId: "983455720395",
+          appId: "1:983455720395:web:ff19425122cd4041784c4e",
+          measurementId: "G-WFZZTEC8QX"
+      ));
   runApp(GetMaterialApp(
       onInit: () {
         secureScreen();
