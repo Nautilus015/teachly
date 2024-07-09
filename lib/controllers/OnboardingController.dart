@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
+import 'package:teachly/screens/LoginScreen.dart';
 import '../screens/onboarding/OnboardingCard.dart';
 
-class OnboardingController extends GetxController{
+class OnboardingController extends GetxController {
+
   static final PageController pageController = PageController(initialPage: 0);
-  getPageController(){
+
+  getPageController() {
     return pageController;
   }
   List<Widget> onboardingPages = [
@@ -14,8 +18,9 @@ class OnboardingController extends GetxController{
       description: 'description: Here you can do whatever you want',
       buttonText: 'Next',
       onPress: () {
-        pageController.animateToPage(1, duration:Durations.long1, curve: Curves.linearToEaseOut);
-        },
+        pageController.animateToPage(1,
+            duration: Durations.long1, curve: Curves.linearToEaseOut);
+      },
     ),
     OnboardingCard(
       image: 'assets/images/page2.png',
@@ -23,7 +28,8 @@ class OnboardingController extends GetxController{
       description: 'description: Here you can do whatever you want',
       buttonText: 'Next',
       onPress: () {
-        pageController.animateToPage(2, duration:Durations.long1, curve: Curves.linearToEaseOut);
+        pageController.animateToPage(2,
+            duration: Durations.long1, curve: Curves.linearToEaseOut);
       },
     ),
     OnboardingCard(
@@ -32,6 +38,7 @@ class OnboardingController extends GetxController{
       description: 'description: Here you can do whatever you want',
       buttonText: 'Done',
       onPress: () {
+        // Get.off(() => LoginScreen());
       },
     )
   ];
