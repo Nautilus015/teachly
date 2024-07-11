@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "983455720395",
+    "project_id": "teachly-6d7d6",
+    "storage_bucket": "teachly-6d7d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983455720395:android:c14dacdc9fdcc05a784c4e",
+        "android_client_info": {
+          "package_name": "com.gandj.teachly"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_4klLiwnXClfzN95bI8f0xWDLIN22oYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

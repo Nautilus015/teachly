@@ -12,6 +12,7 @@ class forgotpwScreen extends StatelessWidget {
       builder: (controller) {
         return Scaffold(
             appBar: AppBar(
+              foregroundColor: Colors.white,
               backgroundColor: Colors.blue,
               elevation: 0,
             ),
