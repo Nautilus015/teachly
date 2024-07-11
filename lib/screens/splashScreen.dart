@@ -7,22 +7,22 @@ class splashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SplashController>(
-        init: SplashController(),
-        builder: (controller) {
-          return Scaffold(
-            body: Stack(alignment: Alignment.center,
-                children: [
-              Container(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Colors.blue.shade500, Colors.lightGreenAccent],
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft)),
-              ),
-              Image.asset('assets/images/applogo.png'),
-            ]),
-          );
-        });
+    return Scaffold(
+      body: GetBuilder<SplashController>(
+          init: SplashController(),
+          builder: (controller) {
+            return  Stack(alignment: Alignment.center,
+                  children: [
+                Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [Colors.blue.shade500, Colors.lightGreenAccent],
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft)),
+                ),
+                Image.asset('assets/images/applogo.png'),
+              ]);
+          }),
+    );
   }
 }

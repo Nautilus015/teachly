@@ -1,26 +1,36 @@
 {
   "project_info": {
-    "project_number": "983455720395",
-    "project_id": "teachly-6d7d6",
-    "storage_bucket": "teachly-6d7d6.appspot.com"
+    "project_number": "822507074043",
+    "project_id": "teachly-5b61a",
+    "storage_bucket": "teachly-5b61a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:983455720395:android:c14dacdc9fdcc05a784c4e",
+        "mobilesdk_app_id": "1:822507074043:android:25edef1560633bbf3a9b5e",
         "android_client_info": {
           "package_name": "com.gandj.teachly"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "822507074043-tij8nfjq4e5jgsfuej44h9os72o7ge8d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyB_4klLiwnXClfzN95bI8f0xWDLIN22oYE"
+          "current_key": "AIzaSyBAnjo6BAsH4fXVBvXc-ojT2Cxkdv8xmR0"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822507074043-tij8nfjq4e5jgsfuej44h9os72o7ge8d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
