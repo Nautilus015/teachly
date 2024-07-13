@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:teachly/controllers/OnboardingController.dart';
 
 class OnboardingCard extends StatelessWidget {
   final String image, title, description, buttonText;
@@ -34,7 +32,7 @@ class OnboardingCard extends StatelessWidget {
                 child: Text(
                   title,
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.blueAccent, fontSize: 25,fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.blueAccent, fontSize: 30,fontWeight: FontWeight.bold),
                 ),
               ),
               Padding(
@@ -42,7 +40,7 @@ class OnboardingCard extends StatelessWidget {
                 child: Text(
                   description,
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.grey, fontSize: 15,fontWeight: FontWeight.w300),
+                  style: TextStyle(color: Colors.grey, fontSize: 20,fontWeight: FontWeight.w300),
                 ),
               )
             ],

@@ -1,5 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:teachly/screens/onboarding/OnboardingScreen.dart';
 
 import '../screens/LoginScreen.dart';
 
@@ -11,15 +13,20 @@ class SplashController extends GetxController {
   }
 
   Future<void> initSplash() async {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    await Future.delayed(Duration(seconds: 4));
-    Get.off(() => LoginScreen());
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final bool? firstTime = prefs.getBool('firstTime');
+    await Future.delayed(Duration(seconds: 3),(){
+      if(firstTime==false){
+        Get.off(()=>LoginScreen());
+      }
+      else{
+        Get.off(() => OnboardingScreen());
+      }
+    });
   }
 
   @override
   void onClose() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: SystemUiOverlay.values);
     super.onClose();
   }
 }
