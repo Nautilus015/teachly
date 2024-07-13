@@ -1,26 +1,38 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:teachly/screens/LoginScreen.dart';
+
+import '../controllers/bottomnavController.dart';
 
 class bottomnavScreen extends StatelessWidget {
   const bottomnavScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.lightGreenAccent,
-        color: Colors.blue,
-        animationDuration: Duration(milliseconds: 500),
-        items: [
-        Icon(Icons.home,
-        color: Colors.white,),
-        Icon(Icons.favorite,
-            color: Colors.white),
-        Icon(Icons.search,
-            color: Colors.white),
-        Icon(Icons.settings,
-            color: Colors.white ),
-      ],),
+    return GetBuilder<NavigationController>(
+      init: NavigationController(),
+      builder: (controller) {
+        return Scaffold(
+            bottomNavigationBar: Obx(
+              () => NavigationBar(
+                height: 80,
+                        elevation: 0,
+                        selectedIndex: controller.selectedIndex.value,
+                        onDestinationSelected: (index) => controller.selectedIndex.value = index,
+                        destinations: [
+              NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+              NavigationDestination(
+                  icon: Icon(Icons.search), label: 'Search'),
+              NavigationDestination(icon: Icon(Icons.person), label: 'profile'),
+              NavigationDestination(
+                  icon: Icon(Icons.settings), label: 'Settings'),
+                        ],
+                      ),
+            ),
+          body: Obx(() => controller.screens[controller.selectedIndex.value]),
+        );
+      },
     );
   }
 }

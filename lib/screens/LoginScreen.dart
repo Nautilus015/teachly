@@ -10,34 +10,40 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size=MediaQuery.sizeOf(context);
     return SafeArea(
       child: Scaffold(
           body: GetBuilder<LoginController>(
             init: LoginController(),
             builder: (controller) {
-              return Stack(children: [
-                Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/designone.png'),
-                          fit: BoxFit.cover)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
+              return Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: SingleChildScrollView(
                   child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 16),
-                        Text(
-                          'Sign In',
-                          style: TextStyle(color: Colors.black, fontSize: 40),
+                        Image(height: 150,
+                            image: AssetImage('assets/images/logo.png')),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: Text(textAlign: TextAlign.left,
+                            'Welcome back,',
+                            style: TextStyle(color: Colors.black, fontSize: 30,fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          child: Text(textAlign: TextAlign.left,
+                            'Dive right back into your courses and continue your learning journey with us!',
+                            style: TextStyle(color: Colors.black, fontSize: 20,fontWeight: FontWeight.w300),
+                          ),
                         ),
                         SizedBox(height: 16),
                         TextField(
                           controller: controller.emailValue,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.email),
                             errorText: controller.emailValidate
                                 ? "Email Can't Be Empty"
                                 : null,
@@ -63,6 +69,7 @@ class LoginScreen extends StatelessWidget {
                           keyboardType: TextInputType.text,
                           obscureText: true,
                           decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.password),
                             errorText: controller.passValidate
                                 ? "Password Can't Be Empty"
                                 : null,
@@ -117,25 +124,27 @@ class LoginScreen extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: 16),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            minimumSize: Size(300, 50),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                        Align(alignment: Alignment.center,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              minimumSize: Size(300, 50),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
-                          ),
-                          onPressed: () {
-                            controller.loginWithEmail();
-                          },
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
+                            onPressed: () {
+                              controller.loginWithEmail();
+                            },
+                            child: Text(
+                              'Login',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
@@ -166,7 +175,7 @@ class LoginScreen extends StatelessWidget {
                         )
                       ]),
                 ),
-              ]);
+              );
             },
           )),
     );

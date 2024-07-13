@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:teachly/screens/LoginScreen.dart';
 
 class forgotpwController extends GetxController {
   TextEditingController emailcontroller = TextEditingController();
@@ -18,8 +17,8 @@ class forgotpwController extends GetxController {
    passwordReset() async {
     try {
       await FirebaseAuth.instance
-          .sendPasswordResetEmail(email: emailcontroller.text);
-    } catch (e) {
+          .sendPasswordResetEmail(email: emailcontroller.text.trim());
+    } on FirebaseAuthException catch (e) {
       print(e);
       Get.showSnackbar(
         GetSnackBar(
@@ -27,7 +26,22 @@ class forgotpwController extends GetxController {
               fontSize: 20,
               color: Colors.white
           ),),
-          messageText: Text(e.toString(),style: TextStyle(
+          messageText: Text(e.message.toString(),style: TextStyle(
+              fontSize: 20,
+              color: Colors.white
+          )),
+          icon: const Icon(Icons.error,color: Colors.white,),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    } catch (err) {
+       Get.showSnackbar(
+        GetSnackBar(
+          titleText: Text('Error',style: TextStyle(
+              fontSize: 20,
+              color: Colors.white
+          ),),
+          messageText: Text(err.toString(),style: TextStyle(
               fontSize: 20,
               color: Colors.white
           )),
@@ -36,6 +50,7 @@ class forgotpwController extends GetxController {
         ),
       );
     }
+
     update();
   }
 }
