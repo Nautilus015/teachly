@@ -2,7 +2,6 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teachly/screens/LoginScreen.dart';
-
 import '../controllers/bottomnavController.dart';
 
 class bottomnavScreen extends StatelessWidget {
@@ -23,8 +22,8 @@ class bottomnavScreen extends StatelessWidget {
                         destinations: [
               NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
               NavigationDestination(
-                  icon: Icon(Icons.search), label: 'Search'),
-              NavigationDestination(icon: Icon(Icons.person), label: 'profile'),
+                  icon: Icon(Icons.chat), label: 'Chat'),
+              NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
               NavigationDestination(
                   icon: Icon(Icons.settings), label: 'Settings'),
                         ],

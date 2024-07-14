@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teachly/screens/ProfileScreen.dart';
+import 'package:teachly/screens/bottomnavScreen.dart';
 
 class LoginController extends GetxController {
   TextEditingController emailValue = TextEditingController();
@@ -23,7 +24,7 @@ class LoginController extends GetxController {
         final user = await auth.signInWithEmailAndPassword(
             email: emailValue.text, password: passValue.text);
         if (user != null) {
-          Get.off(() => ProfileScreen());
+          Get.off(() => bottomnavScreen());
         }
       }
       on FirebaseAuthException catch (e) {

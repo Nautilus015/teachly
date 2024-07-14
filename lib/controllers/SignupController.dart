@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens/LoginScreen.dart';
 
@@ -58,7 +59,10 @@ class SignupController extends GetxController {
   ];
   String selecetedCity = 'Select your City';
   String selecetedGrade = 'Select your Grade';
+
+
 addUser()  async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
  await fireStore.collection('users').add({
     'firstName': firstName.text,
     'lastName':lastName.text,
@@ -67,7 +71,10 @@ addUser()  async {
     'city':selecetedCity,
     'grade':selecetedGrade,
     'email':email.text
-  }).then((value)=>Get.off(() => LoginScreen()));
+  }).then((value) {
+     prefs.setString('firstNameAndLastName',firstName.text+lastName.text);
+    Get.off(() => LoginScreen());
+  });
 }
   signupWithEmailAndPassword() async {
     validates[0] = firstName.text.isEmpty;

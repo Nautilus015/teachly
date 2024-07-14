@@ -3,8 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
+import 'package:teachly/screens/HomeScreen.dart';
+import 'package:teachly/screens/LoginScreen.dart';
+import 'package:teachly/screens/bottomnavScreen.dart';
 import 'package:teachly/screens/splashScreen.dart';
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +31,7 @@ Future<void> main() async {
         secureScreen();
       },
       debugShowCheckedModeBanner: false,
-      home: splashScreen()));
+      home: LoginScreen()));
 }
 secureScreen() async {
   await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
