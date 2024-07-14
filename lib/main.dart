@@ -3,7 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
-import 'package:teachly/screens/ChatScreen.dart';
+import 'package:teachly/screens/TeacherScreens/ChatScreen.dart';
+import 'package:teachly/screens/TeacherScreens/ChatdetailedScreen.dart';
 import 'package:teachly/screens/splashScreen.dart';
 
 
@@ -30,7 +31,7 @@ Future<void> main() async {
         secureScreen();
       },
       debugShowCheckedModeBanner: false,
-      home: ChatScreen()));
+      home: ChatdetailedScreen()));
 }
 secureScreen() async {
   await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);

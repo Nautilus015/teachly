@@ -1,102 +1,109 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:teachly/controllers/ChatScreenController.dart';
+import 'package:teachly/screens/TeacherScreens/ChatdetailedScreen.dart';
 
-class ChatScreen extends StatefulWidget {
-  @override
-  _ChatScreenState createState() => _ChatScreenState();
-}
-
-class _ChatScreenState extends State<ChatScreen> {
-  final _messageController = TextEditingController();
-  final _scrollController = ScrollController();
-
-  List<ChatMessage> _messages = [];
-
-  void _handleSendMessage() {
-    if (_messageController.text.isNotEmpty) {
-      setState(() {
-        _messages.add(ChatMessage(
-          text: _messageController.text,
-          isSender: true,
-        ));
-        _messageController.clear();
-      });
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        curve: Curves.easeOut,
-        duration: const Duration(milliseconds: 300),
-      );
-    }
-  }
-
+class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Chat with Students'),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              controller: _scrollController,
-              itemCount: _messages.length,
-              itemBuilder: (context, index) {
-                return ChatMessageWidget(_messages[index]);
-              },
-            ),
-          ),
-          Divider(height: 1),
-          Container(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _messageController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Type a message...',
+    return GetBuilder<ChatScreenController>(
+        init: ChatScreenController(),
+        builder: (controller) => Scaffold(
+              appBar: AppBar(
+                centerTitle: true,
+                title: Text('Chats'),
+              ),
+              body: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Search',
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                      ),
                     ),
-                  ),
+                    SizedBox(height: 20.0),
+                    Text(
+                      'Student\'s online',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 10.0),
+                    Expanded(
+                      child: StreamBuilder(
+                          stream: controller.fireStore
+                              .collection('users')
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            List<String> userNames = [];
+                            for (var userName in snapshot.data!.docs) {
+                              var nickName = userName.get('firstName') +
+                                  ' ' +
+                                  userName.get('lastName');
+                              userNames.add(nickName);
+                            }
+                            return ListView.builder(
+                              itemCount: userNames.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 10.0),
+                                  child: Row(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundImage: AssetImage(
+                                            'assets/images/user_image.jpg'),
+                                      ),
+                                      SizedBox(width: 16.0),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              userNames[index],
+                                              style: TextStyle(
+                                                fontSize: 18.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Physics teacher',
+                                              style: TextStyle(fontSize: 14.0),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ChatdetailedScreen()));
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.teal,
+                                          textStyle:
+                                              TextStyle(color: Colors.white),
+                                        ),
+                                        child: Text('Chat'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          }),
+                    ),
+                  ],
                 ),
-                SizedBox(width: 16),
-                FloatingActionButton(
-                  onPressed: _handleSendMessage,
-                  child: Icon(Icons.send),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ChatMessage {
-  final String text;
-  final bool isSender;
-
-  ChatMessage({required this.text, required this.isSender});
-}
-
-class ChatMessageWidget extends StatelessWidget {
-  final ChatMessage message;
-
-  ChatMessageWidget(this.message);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: message.isSender
-          ? EdgeInsets.only(top: 8, bottom: 8, left: 80)
-          : EdgeInsets.only(top: 8, bottom: 8, right: 80),
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: message.isSender ? Colors.blue[200] : Colors.grey[200],
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Text(message.text),
-    );
+              ),
+            ));
   }
 }
