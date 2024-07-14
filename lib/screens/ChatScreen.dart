@@ -28,7 +28,7 @@ class ChatScreen extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             Text(
-              'Teacher\'s online',
+              'Student\'s online',
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teachly/screens/ProfileScreen.dart';
+import '../screens/bottomnavScreen.dart';
 
 class LoginController extends GetxController {
   TextEditingController emailValue = TextEditingController();
@@ -12,27 +12,25 @@ class LoginController extends GetxController {
   final auth = FirebaseAuth.instance;
 
   loginWithEmail() async {
-    if (emailValue.text.isEmpty) {
-      emailValidate = true;
-      update();
-    }
-    else if (passValue.text.isEmpty) {
-      passValidate=true;
-      update();
+    emailValidate = emailValue.text.isEmpty;
+    passValidate=emailValue.text.isEmpty;
+    update();
+    if(emailValidate||passValidate){
+      return;
     }
     else {
       try {
         final user = await auth.signInWithEmailAndPassword(
             email: emailValue.text, password: passValue.text);
         if (user != null) {
-          Get.off(() => ProfileScreen());
+          Get.off(() => bottomnavScreen());
         }
       }
       on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           Get.showSnackbar(
             GetSnackBar(
-              titleText: Text('Try Again',style: TextStyle(
+              titleText: Text('Error!',style: TextStyle(
                 fontSize: 20,
                 color: Colors.white
               ),),
@@ -40,14 +38,14 @@ class LoginController extends GetxController {
                   fontSize: 20,
                   color: Colors.white
               )),
-              icon: const Icon(Icons.email,color: Colors.white,),
+              icon: const Icon(Icons.warning,color: Colors.white,),
               duration: const Duration(seconds: 3),
             ),
           );
         } else if (e.code == 'wrong-password') {
           Get.showSnackbar(
             GetSnackBar(
-              titleText: Text('Try Again',style: TextStyle(
+              titleText: Text('Error!',style: TextStyle(
                   fontSize: 20,
                   color: Colors.white
               )),
@@ -55,7 +53,7 @@ class LoginController extends GetxController {
                   fontSize: 20,
                   color: Colors.white
               )),
-              icon: const Icon(Icons.password,color: Colors.white,),
+              icon: const Icon(Icons.warning,color: Colors.white,),
               duration: const Duration(seconds: 3),
             ),
           );
@@ -63,7 +61,7 @@ class LoginController extends GetxController {
         else{
           Get.showSnackbar(
             GetSnackBar(
-              titleText: Text('Try Again',style: TextStyle(
+              titleText: Text('Error!',style: TextStyle(
                   fontSize: 20,
                   color: Colors.white
               )),
@@ -71,15 +69,12 @@ class LoginController extends GetxController {
                   fontSize: 20,
                   color: Colors.white
               )),
-              icon: const Icon(Icons.error,color: Colors.white,),
+              icon: const Icon(Icons.warning,color: Colors.white,),
               duration: const Duration(seconds: 3),
             ),
           );
         }
       }
-      emailValidate=false;
-      passValidate=false;
-      update();
     }
   }
 }
