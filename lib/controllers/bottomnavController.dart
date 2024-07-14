@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:teachly/screens/ChatScreen.dart';
+import 'package:teachly/screens/TeacherScreens/ChatScreen.dart';
 import 'package:teachly/screens/ProfileScreen.dart';
 import 'package:teachly/screens/SettingsScreen.dart';
 
