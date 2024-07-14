@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens/LoginScreen.dart';
 
@@ -66,14 +67,17 @@ class SignupController extends GetxController {
   }
 addUser()  async {
  await fireStore.collection('users').add({
-    'firstName': firstName.text,
-    'lastName':lastName.text,
-    'phoneNumber':phoneNumber.text,
-    'guardiansPhoneNumber':guardiansPhoneNumber.text,
+    'firstName': firstName.text.trim(),
+    'lastName':lastName.text.trim(),
+    'phoneNumber':phoneNumber.text.trim(),
+    'guardiansPhoneNumber':guardiansPhoneNumber.text.trim(),
     'city':selecetedCity,
     'grade':selecetedGrade,
-    'email':email.text
-  }).then((value)=>Get.off(() => LoginScreen()));
+    'email':email.text.trim(),
+   'lastMessage':'No messages'
+  }).then((value) {
+    Get.off(() => LoginScreen());
+  });
 }
   signupWithEmailAndPassword() async {
     validates[0] = firstName.text.isEmpty;
@@ -83,7 +87,6 @@ addUser()  async {
     validates[4] = email.text.isEmpty;
     validates[5] = password.text.isEmpty;
     validates[6] = confirmPassword.text.isEmpty;
-
     update();
     if(validates.contains(true)){
       zeroState();

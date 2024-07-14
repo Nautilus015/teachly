@@ -1,22 +1,26 @@
-import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:teachly/screens/bottomnavScreen.dart';
 import 'package:teachly/screens/onboarding/OnboardingScreen.dart';
-
 import '../screens/LoginScreen.dart';
 
 class SplashController extends GetxController {
+  final auth=FirebaseAuth.instance;
   @override
   void onInit() {
     super.onInit();
     initSplash();
   }
-
   Future<void> initSplash() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final bool? firstTime = prefs.getBool('firstTime');
+    final user= auth.currentUser;
     await Future.delayed(Duration(seconds: 3),(){
-      if(firstTime==false){
+      if(user!=null){
+        Get.off(()=>bottomnavScreen());
+      }
+     else if(firstTime==false){
         Get.off(()=>LoginScreen());
       }
       else{

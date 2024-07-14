@@ -43,9 +43,9 @@ dependencies:
   cloud_firestore: ^5.0.2
   firebase_storage: ^12.1.0
   image_picker: ^1.1.2
-  dropdownfield2: ^1.0.7
   firebase_app_check: ^0.3.0+2
   shared_preferences: ^2.2.3
+  dropdownfield2: ^1.0.7
 
 dev_dependencies:
   flutter_test:

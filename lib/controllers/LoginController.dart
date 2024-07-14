@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:teachly/screens/ProfileScreen.dart';
+import 'package:teachly/screens/bottomnavScreen.dart';
 import '../screens/bottomnavScreen.dart';
 
 class LoginController extends GetxController {
@@ -10,7 +12,7 @@ class LoginController extends GetxController {
   bool passValidate = false;
   bool light = false;
   final auth = FirebaseAuth.instance;
-
+  
   loginWithEmail() async {
     emailValidate = emailValue.text.isEmpty;
     passValidate=emailValue.text.isEmpty;
