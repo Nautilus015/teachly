@@ -5,6 +5,7 @@ import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
 import 'package:teachly/screens/TeacherScreens/ChatScreen.dart';
 import 'package:teachly/screens/TeacherScreens/ChatdetailedScreen.dart';
+import 'package:teachly/screens/bottomnavScreen.dart';
 import 'package:teachly/screens/splashScreen.dart';
 
 
@@ -31,7 +32,7 @@ Future<void> main() async {
         secureScreen();
       },
       debugShowCheckedModeBanner: false,
-      home: ChatdetailedScreen()));
+      home: bottomnavScreen()));
 }
 secureScreen() async {
   await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);

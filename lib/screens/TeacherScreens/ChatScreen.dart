@@ -42,11 +42,14 @@ class ChatScreen extends StatelessWidget {
                               .snapshots(),
                           builder: (context, snapshot) {
                             List<String> userNames = [];
-                            for (var userName in snapshot.data!.docs) {
-                              var nickName = userName.get('firstName') +
+                            List<String> lastMessages = [];
+                            for (var user in snapshot.data!.docs) {
+                              var nickName = user.get('firstName') +
                                   ' ' +
-                                  userName.get('lastName');
+                                  user.get('lastName');
+                              var lastMessage = user.get('lastMessage');
                               userNames.add(nickName);
+                              lastMessages.add(lastMessage);
                             }
                             return ListView.builder(
                               itemCount: userNames.length,
@@ -73,7 +76,7 @@ class ChatScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'Physics teacher',
+                                              lastMessages[index],
                                               style: TextStyle(fontSize: 14.0),
                                             ),
                                           ],
@@ -81,11 +84,7 @@ class ChatScreen extends StatelessWidget {
                                       ),
                                       ElevatedButton(
                                         onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ChatdetailedScreen()));
+                                          Get.to(() => ChatdetailedScreen(),arguments: userNames[index]);
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: Colors.teal,
