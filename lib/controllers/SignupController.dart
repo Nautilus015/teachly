@@ -14,6 +14,8 @@ class SignupController extends GetxController {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
+  bool isLoading = false;
+  bool isClicked = false;
   final auth = FirebaseAuth.instance;
   final fireStore=FirebaseFirestore.instance;
   List<bool> validates = [
@@ -59,20 +61,21 @@ class SignupController extends GetxController {
   ];
   String selecetedCity = 'Select your City';
   String selecetedGrade = 'Select your Grade';
-
-
+  zeroState (){
+    isLoading = false;
+    isClicked = false;
+  }
 addUser()  async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
  await fireStore.collection('users').add({
-    'firstName': firstName.text,
-    'lastName':lastName.text,
-    'phoneNumber':phoneNumber.text,
-    'guardiansPhoneNumber':guardiansPhoneNumber.text,
+    'firstName': firstName.text.trim(),
+    'lastName':lastName.text.trim(),
+    'phoneNumber':phoneNumber.text.trim(),
+    'guardiansPhoneNumber':guardiansPhoneNumber.text.trim(),
     'city':selecetedCity,
     'grade':selecetedGrade,
-    'email':email.text
+    'email':email.text.trim(),
+   'lastMessage':'No messages'
   }).then((value) {
-     prefs.setString('firstNameAndLastName',firstName.text+lastName.text);
     Get.off(() => LoginScreen());
   });
 }
@@ -86,9 +89,12 @@ addUser()  async {
     validates[6] = confirmPassword.text.isEmpty;
     update();
     if(validates.contains(true)){
+      zeroState();
+      update();
       return;
     }
     else if(selecetedCity=='Select your City'){
+      zeroState();
       Get.showSnackbar(
               GetSnackBar(
                 titleText: Text(
@@ -106,6 +112,7 @@ addUser()  async {
             );
     }
     else if(selecetedGrade=='Select your Grade'){
+      zeroState();
       Get.showSnackbar(
         GetSnackBar(
           titleText: Text(
@@ -123,6 +130,7 @@ addUser()  async {
       );
     }
     else if(password.text!=confirmPassword.text){
+      zeroState();
       Get.showSnackbar(
         GetSnackBar(
           titleText: Text(
@@ -146,6 +154,7 @@ addUser()  async {
               addUser();
           } on FirebaseAuthException catch (e) {
             if (e.code == 'weak-password') {
+              zeroState();
               Get.showSnackbar(
                 GetSnackBar(
                   titleText: Text(
@@ -162,6 +171,7 @@ addUser()  async {
                 ),
               );
             } else if (e.code == 'email-already-in-use') {
+              zeroState();
               Get.showSnackbar(
                 GetSnackBar(
                   titleText: Text(
@@ -178,6 +188,7 @@ addUser()  async {
                 ),
               );
             } else {
+              zeroState();
               Get.showSnackbar(
                 GetSnackBar(
                   titleText: Text(
@@ -196,5 +207,6 @@ addUser()  async {
             }
           }
     }
+    update();
   }
 }

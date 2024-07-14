@@ -168,13 +168,13 @@ class SignupScreen extends StatelessWidget {
                                   child: DropdownButton<String>(
                                     value: controller.selecetedCity,
                                     icon: const Icon(Icons.arrow_downward),
-                                    style:  TextStyle(color: controller.selectColor),
+                                    style: TextStyle(
+                                        color: controller.selectColor),
                                     onChanged: (String? value) {
-                                      if(value=='Select your City'){
-                                        controller.selectColor=Colors.grey;
-                                      }
-                                      else{
-                                        controller.selectColor=Colors.black;
+                                      if (value == 'Select your City') {
+                                        controller.selectColor = Colors.grey;
+                                      } else {
+                                        controller.selectColor = Colors.black;
                                       }
                                       controller.selecetedCity = value!;
                                       controller.update();
@@ -185,10 +185,12 @@ class SignupScreen extends StatelessWidget {
                                       return DropdownMenuItem<String>(
                                         value: value,
                                         child: Padding(
-                                          padding: const EdgeInsets.only(left: 8.0),
-                                          child: Text(value,style: TextStyle(
-                                            color: controller.selectColor,
-                                          )),
+                                          padding:
+                                              const EdgeInsets.only(left: 8.0),
+                                          child: Text(value,
+                                              style: TextStyle(
+                                                color: controller.selectColor,
+                                              )),
                                         ),
                                       );
                                     }).toList(),
@@ -220,13 +222,14 @@ class SignupScreen extends StatelessWidget {
                                   child: DropdownButton<String>(
                                     value: controller.selecetedGrade,
                                     icon: const Icon(Icons.arrow_downward),
-                                    style:  TextStyle(color: controller.selectColorTwo),
+                                    style: TextStyle(
+                                        color: controller.selectColorTwo),
                                     onChanged: (String? value) {
-                                      if(value=='Select your Grade'){
-                                        controller.selectColorTwo=Colors.grey;
-                                      }
-                                      else{
-                                        controller.selectColorTwo=Colors.black;
+                                      if (value == 'Select your Grade') {
+                                        controller.selectColorTwo = Colors.grey;
+                                      } else {
+                                        controller.selectColorTwo =
+                                            Colors.black;
                                       }
                                       controller.selecetedGrade = value!;
                                       controller.update();
@@ -237,10 +240,13 @@ class SignupScreen extends StatelessWidget {
                                       return DropdownMenuItem<String>(
                                         value: value,
                                         child: Padding(
-                                          padding: const EdgeInsets.only(left: 8.0),
-                                          child: Text(value,style: TextStyle(
-                                            color: controller.selectColorTwo,
-                                          )),
+                                          padding:
+                                              const EdgeInsets.only(left: 8.0),
+                                          child: Text(value,
+                                              style: TextStyle(
+                                                color:
+                                                    controller.selectColorTwo,
+                                              )),
                                         ),
                                       );
                                     }).toList(),
@@ -251,7 +257,7 @@ class SignupScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-            
+
                       // DropDownField(
                       //   controller: controller.citiesSelected,
                       //   hintText: 'Select your City',
@@ -263,7 +269,7 @@ class SignupScreen extends StatelessWidget {
                       //     controller.update();
                       //   },
                       // ),
-            
+
                       SizedBox(
                         height: 16,
                       ),
@@ -357,9 +363,23 @@ class SignupScreen extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            controller.signupWithEmailAndPassword();
+                            if(!controller.isClicked&&!controller.isLoading){
+                              controller.isLoading = true;
+                              controller.isClicked = true;
+                              controller.signupWithEmailAndPassword();
+                              controller.update();
+                            }
                           },
-                          child: Text(
+                          child: controller.isLoading
+                              ? SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                              strokeWidth: 2,
+                            ),
+                          )
+                              : Text(
                             'Register',
                             style: TextStyle(
                               color: Colors.white,

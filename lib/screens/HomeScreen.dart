@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Welcome,"),
-                  Text(controller.userName!,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                  Text(controller.userName,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                   Row(
                     children: [
                       Expanded(
