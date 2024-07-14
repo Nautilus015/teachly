@@ -42,11 +42,17 @@ class ChatScreen extends StatelessWidget {
                               .snapshots(),
                           builder: (context, snapshot) {
                             List<String> userNames = [];
-                            for (var userName in snapshot.data!.docs) {
-                              var nickName = userName.get('firstName') +
+                            List<String> lastMessages = [];
+                            List<String> imagesUrl = [];
+                            for (var user in snapshot.data!.docs) {
+                              var nickName = user.get('firstName') +
                                   ' ' +
-                                  userName.get('lastName');
+                                  user.get('lastName');
+                              var lastMessage = user.get('lastMessage');
+                              var imageUrl=user.get('circleAvatarImage');
                               userNames.add(nickName);
+                              lastMessages.add(lastMessage);
+                              imagesUrl.add(imageUrl);
                             }
                             return ListView.builder(
                               itemCount: userNames.length,
@@ -56,8 +62,8 @@ class ChatScreen extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       CircleAvatar(
-                                        backgroundImage: AssetImage(
-                                            'assets/images/user_image.jpg'),
+                                        backgroundImage:imagesUrl[index]==''? AssetImage(
+                                            'assets/images/image.png'):NetworkImage(imagesUrl[index]),
                                       ),
                                       SizedBox(width: 16.0),
                                       Expanded(
@@ -73,7 +79,7 @@ class ChatScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'Physics teacher',
+                                              lastMessages[index],
                                               style: TextStyle(fontSize: 14.0),
                                             ),
                                           ],
@@ -81,11 +87,7 @@ class ChatScreen extends StatelessWidget {
                                       ),
                                       ElevatedButton(
                                         onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ChatdetailedScreen()));
+                                          Get.to(() => ChatdetailedScreen(),arguments: userNames[index]);
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: Colors.teal,

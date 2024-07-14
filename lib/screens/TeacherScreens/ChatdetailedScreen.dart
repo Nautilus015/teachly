@@ -16,14 +16,10 @@ class ChatdetailedScreen extends StatelessWidget {
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          ChatScreen()));
+              Get.to(() => ChatScreen());
             },
           ),
-          title: Text(''),
+          title: Text(controller.userName),
           actions: [
             IconButton(
               icon: Icon(Icons.more_vert),
