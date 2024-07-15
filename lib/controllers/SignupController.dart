@@ -74,7 +74,8 @@ addUser()  async {
     'city':selecetedCity,
     'grade':selecetedGrade,
     'email':email.text.trim(),
-   'lastMessage':'No messages'
+   'lastMessage':'No messages',
+   'circleAvatarImage':''
   }).then((value) {
     Get.off(() => LoginScreen());
   });

@@ -8,6 +8,7 @@ class ChatDetailedController extends GetxController {
   TextEditingController message = TextEditingController();
   dynamic theDataFromPreviousPage = Get.arguments;
   String userName = '';
+
   @override
   void onInit() {
     super.onInit();
