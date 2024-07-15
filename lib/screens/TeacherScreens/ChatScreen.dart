@@ -43,13 +43,19 @@ class ChatScreen extends StatelessWidget {
                           builder: (context, snapshot) {
                             List<String> userNames = [];
                             List<String> lastMessages = [];
+                            List<String> imagesUrl = [];
+                            List<String> emails=[];
                             for (var user in snapshot.data!.docs) {
                               var nickName = user.get('firstName') +
                                   ' ' +
                                   user.get('lastName');
                               var lastMessage = user.get('lastMessage');
+                              var imageUrl=user.get('circleAvatarImage');
+                              var email=user.get('email');
                               userNames.add(nickName);
                               lastMessages.add(lastMessage);
+                              imagesUrl.add(imageUrl);
+                              emails.add(email);
                             }
                             return ListView.builder(
                               itemCount: userNames.length,
@@ -59,8 +65,8 @@ class ChatScreen extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       CircleAvatar(
-                                        backgroundImage: AssetImage(
-                                            'assets/images/user_image.jpg'),
+                                        backgroundImage:imagesUrl[index]==''? AssetImage(
+                                            'assets/images/image.png'):NetworkImage(imagesUrl[index]),
                                       ),
                                       SizedBox(width: 16.0),
                                       Expanded(
@@ -84,7 +90,7 @@ class ChatScreen extends StatelessWidget {
                                       ),
                                       ElevatedButton(
                                         onPressed: () {
-                                          Get.to(() => ChatdetailedScreen(),arguments: userNames[index]);
+                                          Get.to(() => ChatdetailedScreen(),arguments: [userNames[index],emails[index]]);
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: Colors.teal,
