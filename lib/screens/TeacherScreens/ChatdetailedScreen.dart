@@ -78,19 +78,32 @@ class ChatdetailedScreen extends StatelessWidget {
                                     return ListView.builder(
                                         itemCount: messages.length,
                                         itemBuilder: (context,index){
-                                          return Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Flexible(
+                                          return Align(alignment: Alignment.centerRight,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
                                               child: Container(
                                                 // This container will hold the chat messages
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.end,
-                                                    children: [
-                                                      Flexible(child: Text(style:TextStyle(color: Colors.black,fontSize: 18),messages[index])),
-                                                      Text(style: TextStyle(color: Colors.grey,fontSize: 10),dates[index]),
-                                                    ],
+                                                child: Flexible(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Row(
+                                                      mainAxisAlignment:MainAxisAlignment.end,
+                                                      children: [
+                                                        Flexible(
+                                                          child: Text(
+                                                            messages[index],
+                                                            style: TextStyle(color: Colors.black, fontSize: 16),
+                                                          ),
+                                                        ),
+                                                        SizedBox(height: 4),
+                                                        Padding(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: Text(dates[index],
+                                                            style: TextStyle(color: Colors.grey, fontSize: 12),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                                 decoration: BoxDecoration(
