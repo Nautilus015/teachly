@@ -1,7 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teachly/controllers/ChatDetailedController.dart';
-
+import 'package:teachly/controllers/ChatTeacherController.dart';
 import 'ChatScreen.dart';
 
 class ChatdetailedScreen extends StatelessWidget {
@@ -11,7 +11,8 @@ class ChatdetailedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ChatDetailedController>(
         init: ChatDetailedController(),
-        builder: (controller) => Scaffold(
+        builder: (controller) =>
+            Scaffold(
               appBar: AppBar(
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back),
@@ -63,62 +64,71 @@ class ChatdetailedScreen extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: StreamBuilder(
-                                  stream: controller.fireStore
-                                      .collection('messages')
-                                      .snapshots(),
-                                  builder: (context,snapshot){
-                                    List<String> messages = [];
-                                    List<String> dates = [];
-                                    for (var message in snapshot.data!.docs) {
-                                      var msg = message.get('message');
-                                      var date = message.get('date');
-                                      messages.add(msg);
-                                      dates.add(date);
-                                    }
-                                    return ListView.builder(
-                                        itemCount: messages.length,
-                                        itemBuilder: (context,index){
-                                          return Align(alignment: Alignment.centerRight,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Container(
-                                                // This container will hold the chat messages
-                                                child: Flexible(
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: Row(
-                                                      mainAxisAlignment:MainAxisAlignment.end,
-                                                      children: [
-                                                        Flexible(
-                                                          child: Text(
-                                                            messages[index],
-                                                            style: TextStyle(color: Colors.black, fontSize: 16),
+                                    stream: controller.fireStore
+                                        .collection('messages')
+                                        .orderBy('createdOn', descending: true)
+                                        .snapshots(),
+                                    builder: (context, snapshot) {
+                                      List<String> messages = [];
+                                      List<String> dates = [];
+                                      for (var message in snapshot.data!.docs) {
+                                        var msg = message.get('message');
+                                        // var date = message.get('date');
+                                        var timestamp = message.get('createdOn') as Timestamp;
+                                        var dateTime = timestamp.toDate();
+                                        var formattedDate = controller.formatMessageDate(dateTime);
+                                        messages.add(msg);
+                                        dates.add(formattedDate);
+                                      }
+                                      return ListView.builder(
+                                          reverse: true,
+                                          itemCount: messages.length,
+                                          itemBuilder: (context, index) {
+                                            return Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: ConstrainedBox(
+                                                  constraints: BoxConstraints(
+                                                    maxWidth: MediaQuery.of(context).size.width * 0.7, // Limit max width to 70% of screen width
+                                                  ),
+                                                  child: Container(
+                                                    // This container will hold the chat messages
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                          .all(8.0),
+                                                      child: Row(
+                                                        mainAxisSize: MainAxisSize.min,
+                                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                                        children: [
+                                                          Flexible(
+                                                            child: Text(messages[index],
+                                                              style: TextStyle(color: Colors.black, fontSize: 16),
+                                                            ),
                                                           ),
-                                                        ),
-                                                        SizedBox(height: 4),
-                                                        Padding(
-                                                          padding: const EdgeInsets.all(8.0),
-                                                          child: Text(dates[index],
+                                                          SizedBox(width: 8),
+                                                          Text(dates[index],
                                                             style: TextStyle(color: Colors.grey, fontSize: 12),
                                                           ),
-                                                        ),
-                                                      ],
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(width: 2, color: Colors.blue, style: BorderStyle.solid
+                                                      ),
+                                                      borderRadius: BorderRadius.only(
+                                                          topLeft: Radius.circular(20),
+                                                          bottomLeft: Radius.circular(20),
+                                                          bottomRight: Radius.circular(20)
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(width: 2,
-                                                        color: Colors.blue,
-                                                        style: BorderStyle.solid),
-                                                    borderRadius: BorderRadius.only(
-                                                        topLeft: Radius.circular(20),
-                                                        bottomLeft: Radius.circular(20),
-                                                        bottomRight: Radius.circular(20))),
                                               ),
-                                            ),
-                                          );
-                                        });
-                                  }
+                                            );
+                                          }
+                                      );
+                                    }
                                 ),
                               ),
                             ),
@@ -150,6 +160,7 @@ class ChatdetailedScreen extends StatelessWidget {
                             onPressed: () {
                               // Add logic to send message
                               controller.addMessage();
+                              controller.messageText.clear();
                             },
                           ),
                         ],

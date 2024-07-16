@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:teachly/screens/TeacherScreens/ChatScreen.dart';
 import 'package:teachly/screens/ProfileScreen.dart';
 import 'package:teachly/screens/SettingsScreen.dart';
-
 import '../models/UserModel.dart';
 import '../screens/HomeScreen.dart';
 
@@ -24,6 +23,14 @@ class NavigationController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     getCurrentImage();
+  }
+
+  checkTeacher(){
+    if(auth.currentUser!.email=='govanynady@gmail.com'){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   getCurrentImage() async {
