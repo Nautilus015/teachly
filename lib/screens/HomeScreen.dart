@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teachly/controllers/HomeController.dart';
-import 'package:teachly/screens/Lectures.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,25 +17,19 @@ class HomeScreen extends StatelessWidget {
               builder: (controller)=>Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Welcome back,"),
-                  Text(controller.userName,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+
                   Row(
                     children: [
                       Expanded(
-                        child: InkWell(
-                          onTap: (){
-                            Get.to(()=>Lectures());
-                          },
-                          child: Card(
-                            child: Container(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Column(
-                                children: [
-                                  Image.asset('assets/images/lectures.png'),
-                                  SizedBox(height: 8),
-                                  Text('Lectures', style: TextStyle(fontSize: 16)),
-                                ],
-                              ),
+                        child: Card(
+                          child: Container(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              children: [
+                                Image.asset('assets/images/lectures.png'),
+                                SizedBox(height: 8),
+                                Text('Lectures', style: TextStyle(fontSize: 16)),
+                              ],
                             ),
                           ),
                         ),

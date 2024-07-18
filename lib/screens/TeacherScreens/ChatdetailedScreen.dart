@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teachly/controllers/ChatDetailedController.dart';
-
-import 'ChatScreen.dart';
+import 'package:teachly/screens/bottomnavScreen.dart';
 
 class ChatdetailedScreen extends StatelessWidget {
   const ChatdetailedScreen({Key? key}) : super(key: key);
@@ -16,7 +15,7 @@ class ChatdetailedScreen extends StatelessWidget {
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
-                    Get.to(() => ChatScreen());
+                    Get.to(() => bottomnavScreen());
                   },
                 ),
                 title: Text(controller.userName),
@@ -78,20 +77,33 @@ class ChatdetailedScreen extends StatelessWidget {
                                     return ListView.builder(
                                         itemCount: messages.length,
                                         itemBuilder: (context,index){
-                                          return Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Flexible(
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                  children: [
-                                                    Flexible(child: Text(style:TextStyle(color: Colors.black,fontSize: 18),messages[index])),
-                                                    Padding(
-                                                      padding: const EdgeInsets.all(8.0),
-                                                      child: Text(style: TextStyle(color: Colors.grey,fontSize: 10),dates[index]),
+                                          return Align(alignment: Alignment.centerRight,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Container(
+                                                // This container will hold the chat messages
+                                                child: Flexible(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Row(
+                                                      mainAxisAlignment:MainAxisAlignment.end,
+                                                      children: [
+                                                        Flexible(
+                                                          child: Text(
+                                                            messages[index],
+                                                            style: TextStyle(color: Colors.black, fontSize: 16),
+                                                          ),
+                                                        ),
+                                                        SizedBox(height: 4),
+                                                        Padding(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: Text(dates[index],
+                                                            style: TextStyle(color: Colors.grey, fontSize: 12),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ],
+                                                  ),
                                                 ),
                                               ),
                                             ),
