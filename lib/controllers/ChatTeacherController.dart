@@ -35,6 +35,7 @@ class ChatDetailedController extends GetxController {
       dayTime = 'AM';
     }
     await fireStore.collection('messages').add({
+      'uid': auth.currentUser?.uid,
       'emailSender': auth.currentUser!.email,
       'emailReceiver': receiverEmail,
       'date': '$hour:$minute $dayTime',

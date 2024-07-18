@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens/LoginScreen.dart';
@@ -67,6 +68,7 @@ class SignupController extends GetxController {
   }
 addUser()  async {
  await fireStore.collection('users').add({
+    'uid': auth.currentUser?.uid,
     'firstName': firstName.text.trim(),
     'lastName':lastName.text.trim(),
     'phoneNumber':phoneNumber.text.trim(),
@@ -74,7 +76,8 @@ addUser()  async {
     'city':selecetedCity,
     'grade':selecetedGrade,
     'email':email.text.trim(),
-   'lastMessage':'No messages'
+   'lastMessage':'No messages',
+   'circleAvatarImage':''
   }).then((value) {
     Get.off(() => LoginScreen());
   });
