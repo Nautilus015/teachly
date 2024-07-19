@@ -5,11 +5,10 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:intl/intl.dart';
 
-import 'ChatTeacherController.dart';
 
 class ChatDetailedController extends GetxController {
   final fireStore = FirebaseFirestore.instance;
-  final messageText = TextEditingController();
+  TextEditingController messageText = TextEditingController();
   TextEditingController message = TextEditingController();
   final auth = FirebaseAuth.instance;
   late User signedinUser;
@@ -61,6 +60,5 @@ class ChatDetailedController extends GetxController {
   void getCurrentUser() {
     userName = theDataFromPreviousPage[0];
     receiverEmail = theDataFromPreviousPage[1];
-    print(receiverEmail);
   }
 }

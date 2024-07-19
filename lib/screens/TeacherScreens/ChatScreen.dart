@@ -10,6 +10,7 @@ class ChatScreen extends StatelessWidget {
         init: ChatScreenController(),
         builder: (controller) => Scaffold(
               appBar: AppBar(
+                automaticallyImplyLeading: false,
                 centerTitle: true,
                 title: Text('Chats'),
               ),

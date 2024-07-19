@@ -23,9 +23,9 @@ class bottomnavScreen extends StatelessWidget {
               NavigationDestination(
                   icon: Icon(Icons.chat), label: 'Chat'),
               NavigationDestination(
-                icon:  Icon(Icons.person), label: 'Profile'),
+                icon:  Icon(Icons.book), label: 'Books'),
               NavigationDestination(
-                  icon: Icon(Icons.settings), label: 'Settings'),
+                  icon: Icon(Icons.person), label: 'Profile'),
                         ],
                       ),
             ),

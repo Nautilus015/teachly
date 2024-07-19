@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teachly/controllers/ChatTeacherController.dart';
-import 'ChatScreen.dart';
+import 'package:teachly/screens/bottomnavScreen.dart';
 
 class ChatdetailedScreen extends StatelessWidget {
   const ChatdetailedScreen({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class ChatdetailedScreen extends StatelessWidget {
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
-                    Get.to(() => ChatScreen());
+                    Get.to(() => bottomnavScreen());
                   },
                 ),
                 title: Text(controller.userName),
