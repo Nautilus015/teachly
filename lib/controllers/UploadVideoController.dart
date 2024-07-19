@@ -21,7 +21,7 @@ class UploadVideoController extends GetxController {
   bool isLoading =false;
   String zeroStateText='No video Selected';
   double duration=0.0;
-
+  String finalDuration='';
 
   pickVideo() async {
     try {
@@ -155,7 +155,12 @@ class UploadVideoController extends GetxController {
     Reference imageRef = storage.ref().child('images/${DateTime.now()}');
     File? thumbnailImage = await VideoCompress.getFileThumbnail(videoFile!.path);
     MediaInfo? media = await VideoCompress.getMediaInfo(videoFile!.path);
-    duration= media.duration!;
+    duration= media.duration!/1000;
+    Duration _duration = Duration(seconds: duration.toInt());
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    String twoDigitMinutes = twoDigits(_duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(_duration.inSeconds.remainder(60));
+    finalDuration= "$twoDigitMinutes:$twoDigitSeconds";
     await imageRef.putFile(thumbnailImage);
     String downloadUrl = await imageRef.getDownloadURL();
     return downloadUrl;
@@ -167,7 +172,7 @@ class UploadVideoController extends GetxController {
       'timeStamp': FieldValue.serverTimestamp(),
       'name': videoName.text.trim(),
       'downloadUrlImage':downloadUrlImage,
-      'duration':duration.seconds
-    }).then((_){videoUrl=null;videoName.text=''; isLoading=false;zeroStateText='Video Uploaded Successfully'; update();});
+      'duration':finalDuration
+    }).then((_){videoUrl=null;videoName.text=''; isLoading=false;zeroStateText='Video Uploaded Successfully'; update();}).catchError((error) => print("Failed to upload: $error"));
   }
 }
