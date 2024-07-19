@@ -25,6 +25,14 @@ class NavigationController extends GetxController {
     getCurrentImage();
   }
 
+  checkTeacher(){
+    if(auth.currentUser!.email=='govanynady@gmail.com'){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   getCurrentImage() async {
     var users = await FirebaseFirestore.instance
         .collection('users')

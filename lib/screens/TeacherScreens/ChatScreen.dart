@@ -39,8 +39,7 @@ class ChatScreen extends StatelessWidget {
                     Expanded(
                       child: StreamBuilder(
                           stream: controller.fireStore
-                              .collection('users')
-                              .snapshots(),
+                              .collection('users').snapshots(),
                           builder: (context, snapshot) {
                             List<String> userNames = [];
                             List<String> lastMessages = [];
@@ -98,7 +97,7 @@ class ChatScreen extends StatelessWidget {
                                           textStyle:
                                               TextStyle(color: Colors.white),
                                         ),
-                                        child: Text('Chat'),
+                                        child: Text('Chat',style: TextStyle(color: Colors.white),),
                                       ),
                                     ],
                                   ),

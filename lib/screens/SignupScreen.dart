@@ -257,18 +257,6 @@ class SignupScreen extends StatelessWidget {
                         ),
                       ),
 
-                      // DropDownField(
-                      //   controller: controller.citiesSelected,
-                      //   hintText: 'Select your City',
-                      //   enabled: true,
-                      //   itemsVisibleInDropdown: 5,
-                      //   items: controller.citiesList,
-                      //   onValueChanged: (value){
-                      //     controller.selecetedCity = value;
-                      //     controller.update();
-                      //   },
-                      // ),
-
                       SizedBox(
                         height: 16,
                       ),

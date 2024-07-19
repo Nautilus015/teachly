@@ -23,7 +23,7 @@ class bottomnavScreen extends StatelessWidget {
               NavigationDestination(
                   icon: Icon(Icons.chat), label: 'Chat'),
               NavigationDestination(
-                icon: controller.imageUrl==''? Icon(Icons.person):ImageIcon(NetworkImage(controller.imageUrl)), label: 'Profile'),
+                icon:  Icon(Icons.person), label: 'Profile'),
               NavigationDestination(
                   icon: Icon(Icons.settings), label: 'Settings'),
                         ],
