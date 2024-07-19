@@ -28,7 +28,7 @@ class VideoPlay extends StatelessWidget {
               children: [
                 AspectRatio(aspectRatio: controller.controller!.value.aspectRatio,
                   child: VideoPlayer(controller.controller!),
-                )
+                ),VideoProgressIndicator(controller.controller!, allowScrubbing: true)
               ],
             ),
           ),

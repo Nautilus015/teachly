@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:teachly/screens/VideoPlay.dart';
 import '../controllers/LecturesController.dart';
 import 'UploadVideoScreen.dart';
 
@@ -31,21 +31,45 @@ class LecturesScreen extends StatelessWidget {
               StreamBuilder(
                   stream: controller.fireStore.collection('videos').snapshots(),
                   builder: (context, snapshot) {
-                    List<Row> videoWidgets=[];
-                    if(!snapshot.hasData){
+                    List<Widget> videoWidgets=[];
+                    if(snapshot.connectionState==ConnectionState.waiting){
                       const CircularProgressIndicator();
                     }
                     else{
                       final videos=snapshot.data!.docs.reversed.toList();
                       for(var video in videos){
-                        final videoWidget=Row(
-                          children: [
-                            Text(video['name']),
-                            IconButton(onPressed: (){
-                              Get.to(()=>VideoPlay(),arguments: [video['url'],video['name']]);
-                            }, icon: Icon(Icons.play_arrow_rounded))
-                          ],
+                        final videoWidget=Container(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.network(video['downloadUrlImage']),
+                              const SizedBox(height: 10),
+                              const Text(
+                                'Bassirou Gueye',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
                         );
+                        // Row(
+                        //   children: [
+                        //     Text(video['name']),
+                        //     IconButton(onPressed: (){
+                        //       Get.to(()=>VideoPlay(),arguments: [video['url'],video['name']]);
+                        //     }, icon: Icon(Icons.play_arrow_rounded)),
+                        //
+                        //     Expanded(child: Image.network(video['downloadUrlImage']))
+                        //   ],
+                        // );
+
                         videoWidgets.add(videoWidget);
                       }
                     }

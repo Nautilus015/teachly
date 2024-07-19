@@ -97,7 +97,7 @@ class ChatScreen extends StatelessWidget {
                                           textStyle:
                                               TextStyle(color: Colors.white),
                                         ),
-                                        child: Text('Chat'),
+                                        child: Text('Chat',style: TextStyle(color: Colors.white),),
                                       ),
                                     ],
                                   ),

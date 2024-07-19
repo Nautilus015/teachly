@@ -92,23 +92,6 @@ class LoginScreen extends StatelessWidget {
                         Row(
                           children: [
                             Expanded(
-                              flex: 15,
-                              child: Transform.scale(
-                                scale: 0.8,
-                                child: Switch(
-                                  // This bool value toggles the switch.
-                                  value: controller.light,
-                                  activeColor: Colors.blue,
-                                  onChanged: (bool value) {
-                                    controller.light=value;
-                                    controller.update();
-                                  },
-                                ),
-                              ),
-                            ),
-                            Expanded(flex: 25, child: Text('Remind Me')),
-                            Expanded(
-                              flex: 60,
                               child: Align(
                                 alignment: Alignment.centerRight,
                                 child: TextButton(

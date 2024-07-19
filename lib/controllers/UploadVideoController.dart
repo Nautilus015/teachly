@@ -1,17 +1,16 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:video_compress/video_compress.dart';
 import 'package:video_player/video_player.dart';
-
-import '../models/UserModel.dart';
 
 class UploadVideoController extends GetxController {
   String? videoUrl;
   String? downloadUrl;
+  String? downloadUrlImage;
   TextEditingController videoName = TextEditingController();
   final picker = ImagePicker();
   final FirebaseStorage storage = FirebaseStorage.instance;
@@ -20,6 +19,7 @@ class UploadVideoController extends GetxController {
   XFile? videoFile;
   bool isLoading =false;
   String zeroStateText='No video Selected';
+  double duration=0.0;
 
 
   pickVideo() async {
@@ -57,7 +57,7 @@ class UploadVideoController extends GetxController {
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.video_chat),
-                hintText: 'Your phone number',
+                hintText: 'Your video name',
                 hintStyle: TextStyle(color: Colors.grey.shade400),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.blue, width: 1.0),
@@ -131,6 +131,7 @@ class UploadVideoController extends GetxController {
     update();
     try{
       downloadUrl = await uploadVideo();
+      downloadUrlImage= await getThumbnail();
       await saveVideoData(downloadUrl!);
     }
     catch(e){
@@ -142,19 +143,30 @@ class UploadVideoController extends GetxController {
         messageText: Text(e.toString(),
             style: TextStyle(fontSize: 20, color: Colors.white)),
         icon: const Icon(
-          Icons.dangerous,
+          Icons.warning,
           color: Colors.white,
         ),
         duration: const Duration(seconds: 3),
       );
     }
   }
+  getThumbnail() async {
+    Reference imageRef = storage.ref().child('images/${DateTime.now()}');
+    File? thumbnailImage = await VideoCompress.getFileThumbnail(videoFile!.path);
+    MediaInfo? media = await VideoCompress.getMediaInfo(videoFile!.path);
+    duration= media.duration!;
+    await imageRef.putFile(thumbnailImage);
+    String downloadUrl = await imageRef.getDownloadURL();
+    return downloadUrl;
+  }
 
   saveVideoData(String videoDownloadUrl) async {
     await fireStore.collection('videos').add({
       'url': downloadUrl,
       'timeStamp': FieldValue.serverTimestamp(),
-      'name': videoName.text.trim()
+      'name': videoName.text.trim(),
+      'downloadUrlImage':downloadUrlImage,
+      'duration':duration.seconds
     }).then((_){videoUrl=null;videoName.text=''; isLoading=false;zeroStateText='Video Uploaded Successfully'; update();});
   }
 }

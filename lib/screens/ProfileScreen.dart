@@ -38,7 +38,7 @@ class ProfileScreen extends StatelessWidget {
                       backgroundImage:
                       controller.imageFile !=null
                           ? FileImage(controller.imageFile!):
-                      controller.circleAvatarImage !=''?
+                      controller.circleAvatarImage !=''&&controller.circleAvatarImage!=null?
                       NetworkImage(controller.circleAvatarImage):
                          AssetImage('assets/images/image.png')),
                   Visibility(

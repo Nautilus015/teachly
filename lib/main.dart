@@ -3,8 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
-import 'package:teachly/screens/BooksScreen.dart';
-import 'package:teachly/screens/bottomnavScreen.dart';
 import 'package:teachly/screens/splashScreen.dart';
 
 Future<void> main() async {
@@ -30,8 +28,7 @@ Future<void> main() async {
         secureScreen();
       },
       debugShowCheckedModeBanner: false,
-      home: bottomnavScreen(),
-
+      home: splashScreen(),
   )
   );
 }
