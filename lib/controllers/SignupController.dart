@@ -91,6 +91,14 @@ addUser()  async {
     validates[5] = password.text.isEmpty;
     validates[6] = confirmPassword.text.isEmpty;
     update();
+    Get.snackbar(
+        'Success',
+        'You have been Signed Up successfully',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+        icon: Icon(Icons.warning,color: Colors.white,)
+    );
     if(validates.contains(true)){
       zeroState();
       update();
@@ -102,9 +110,9 @@ addUser()  async {
         'Error!',
         'Please select your city',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-        icon: Icon(Icons.warning,color: Colors.white,)
+        backgroundColor: Colors.red,
+        colorText: Colors.black,
+        icon: Icon(Icons.warning,color: Colors.black,)
       );
     }
     else if(selecetedGrade=='Select your Grade'){
@@ -113,9 +121,9 @@ addUser()  async {
           'Error!',
           'Please select your grade',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-          icon: Icon(Icons.warning,color: Colors.white,)
+          backgroundColor: Colors.red,
+          colorText: Colors.black,
+          icon: Icon(Icons.warning,color: Colors.black,)
       );
     }
     else if(password.text!=confirmPassword.text){
@@ -124,9 +132,9 @@ addUser()  async {
           'Error!',
           'Password not match !',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-          icon: Icon(Icons.warning,color: Colors.white,)
+          backgroundColor: Colors.red,
+          colorText: Colors.black,
+          icon: Icon(Icons.warning,color: Colors.black,)
       );
     }
     else {
@@ -165,21 +173,6 @@ addUser()  async {
                   colorText: Colors.black,
                   icon: Icon(Icons.warning,color: Colors.black,)
               );
-              // Get.showSnackbar(
-              //   GetSnackBar(
-              //     titleText: Text(
-              //       'Error!',
-              //       style: TextStyle(fontSize: 20, color: Colors.white),
-              //     ),
-              //     messageText: Text(e.message.toString(),
-              //         style: TextStyle(fontSize: 20, color: Colors.white)),
-              //     icon: const Icon(
-              //       Icons.warning,
-              //       color: Colors.white,
-              //     ),
-              //     duration: const Duration(seconds: 3),
-              //   ),
-              // );
             }
           }
     }

@@ -19,11 +19,11 @@ class LecturesScreen extends StatelessWidget {
           child: Icon(color: Colors.white, Icons.video_library),
         ):null,
         appBar: AppBar(
+          centerTitle: true,
           automaticallyImplyLeading: false,
           backgroundColor: Colors.blue,
           title: Text(
             "Lectures",
-            style: TextStyle(color: Colors.white),
           ),
         ),
         body: Padding(

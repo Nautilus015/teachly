@@ -34,6 +34,14 @@ class LoginController extends GetxController {
         if (user != null) {
           zeroState();
           Get.off(() => BottomNavigationScreen());
+          Get.snackbar(
+              'Success',
+              'You have been Logged In successfully',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.green,
+              colorText: Colors.white,
+              icon: Icon(Icons.warning,color: Colors.white,)
+          );
         }
       }
       on FirebaseAuthException catch (e) {

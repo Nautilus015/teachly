@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teachly/controllers/NotificationController.dart';
-import 'package:teachly/screens/BottomNavigationScreen.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -14,12 +13,9 @@ class NotificationScreen extends StatelessWidget {
         builder: (controller) =>
             Scaffold(
               appBar: AppBar(
-                leading: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Get.to(() => BottomNavigationScreen());
-                  },
-                ),
+                backgroundColor: Colors.blue,
+                centerTitle: true,
+                automaticallyImplyLeading: false,
                 title: Text('Notification'),
               ),
               body: Column(

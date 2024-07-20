@@ -20,37 +20,24 @@ class ForgotPasswordController extends GetxController {
           .sendPasswordResetEmail(email: emailcontroller.text.trim());
     } on FirebaseAuthException catch (e) {
       print(e);
-      Get.showSnackbar(
-        GetSnackBar(
-          titleText: Text('Error',style: TextStyle(
-              fontSize: 20,
-              color: Colors.white
-          ),),
-          messageText: Text(e.message.toString(),style: TextStyle(
-              fontSize: 20,
-              color: Colors.white
-          )),
-          icon: const Icon(Icons.error,color: Colors.white,),
-          duration: const Duration(seconds: 3),
-        ),
+      Get.snackbar(
+          'Error',
+          e.message.toString(),
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.black,
+          icon: Icon(Icons.warning,color: Colors.black,)
       );
     } catch (err) {
-       Get.showSnackbar(
-        GetSnackBar(
-          titleText: Text('Error',style: TextStyle(
-              fontSize: 20,
-              color: Colors.white
-          ),),
-          messageText: Text(err.toString(),style: TextStyle(
-              fontSize: 20,
-              color: Colors.white
-          )),
-          icon: const Icon(Icons.email,color: Colors.white,),
-          duration: const Duration(seconds: 3),
-        ),
+      Get.snackbar(
+          'Error',
+          err.toString(),
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.black,
+          icon: Icon(Icons.warning,color: Colors.black,)
       );
     }
-
     update();
   }
 }
