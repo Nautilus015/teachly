@@ -141,9 +141,9 @@ addUser()  async {
                   'Error!',
                   'The password provided is too weak !',
                   snackPosition: SnackPosition.BOTTOM,
-                  backgroundColor: Colors.green,
-                  colorText: Colors.white,
-                  icon: Icon(Icons.warning,color: Colors.white,)
+                  backgroundColor: Colors.red,
+                  colorText: Colors.black,
+                  icon: Icon(Icons.warning,color: Colors.black,)
               );
             } else if (e.code == 'email-already-in-use') {
               zeroState();
@@ -151,9 +151,9 @@ addUser()  async {
                   'Error!',
                   'The account already exists for that email !',
                   snackPosition: SnackPosition.BOTTOM,
-                  backgroundColor: Colors.green,
-                  colorText: Colors.white,
-                  icon: Icon(Icons.warning,color: Colors.white,)
+                  backgroundColor: Colors.red,
+                  colorText: Colors.black,
+                  icon: Icon(Icons.warning,color: Colors.black,)
               );
             } else {
               zeroState();
@@ -161,9 +161,9 @@ addUser()  async {
                   'Error!',
                   e.message.toString(),
                   snackPosition: SnackPosition.BOTTOM,
-                  backgroundColor: Colors.green,
-                  colorText: Colors.white,
-                  icon: Icon(Icons.warning,color: Colors.white,)
+                  backgroundColor: Colors.red,
+                  colorText: Colors.black,
+                  icon: Icon(Icons.warning,color: Colors.black,)
               );
               // Get.showSnackbar(
               //   GetSnackBar(

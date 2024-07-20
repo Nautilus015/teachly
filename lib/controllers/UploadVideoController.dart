@@ -148,33 +148,10 @@ class UploadVideoController extends GetxController {
           'Error!',
           e.toString(),
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-          icon: Icon(Icons.warning,color: Colors.white,)
+          backgroundColor: Colors.red,
+          colorText: Colors.black,
+          icon: Icon(Icons.warning,color: Colors.black,)
       );
-    }
-     catch (e) {
-       Get.snackbar(
-           'Error!',
-           e.toString(),
-           snackPosition: SnackPosition.BOTTOM,
-           backgroundColor: Colors.green,
-           colorText: Colors.white,
-           icon: Icon(Icons.warning,color: Colors.white,)
-       );
-      // GetSnackBar(
-      //   titleText: Text(
-      //     'Error!',
-      //     style: TextStyle(fontSize: 20, color: Colors.white),
-      //   ),
-      //   messageText: Text(e.toString(),
-      //       style: TextStyle(fontSize: 20, color: Colors.white)),
-      //   icon: const Icon(
-      //     Icons.warning,
-      //     color: Colors.white,
-      //   ),
-      //   duration: const Duration(seconds: 3),
-      // );
     }
   }
 

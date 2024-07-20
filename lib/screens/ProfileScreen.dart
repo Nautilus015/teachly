@@ -40,7 +40,7 @@ class ProfileScreen extends StatelessWidget {
                           : controller.circleAvatarImage != '' &&
                                   controller.circleAvatarImage != null
                               ? NetworkImage(controller.circleAvatarImage)
-                              : AssetImage('assets/images/image.png')),
+                              : AssetImage('assets/images/person.png')),
                   Visibility(
                     visible: controller.isEditMode ? true : false,
                     child: Padding(
