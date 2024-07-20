@@ -46,7 +46,6 @@ class ChatDetailedController extends GetxController {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = today.subtract(Duration(days: 1));
-
     if (messageTime.isAfter(today)) {
       return DateFormat('HH:mm').format(messageTime);
     } else if (messageTime.isAfter(yesterday)) {

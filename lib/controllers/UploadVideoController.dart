@@ -18,10 +18,11 @@ class UploadVideoController extends GetxController {
   final FirebaseFirestore fireStore = FirebaseFirestore.instance;
   VideoPlayerController? controller;
   XFile? videoFile;
-  bool isLoading =false;
-  String zeroStateText='No video Selected';
-  double duration=0.0;
-  String finalDuration='';
+  bool isLoading = false;
+  String zeroStateText = 'No video Selected';
+  double duration = 0.0;
+  String finalDuration = '';
+  bool checkVideoName=false;
 
   pickVideo() async {
     try {
@@ -59,6 +60,9 @@ class UploadVideoController extends GetxController {
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.video_chat),
                 hintText: 'Your video name',
+                errorText: checkVideoName
+                    ? 'Video Name is required'
+                    : null,
                 hintStyle: TextStyle(color: Colors.grey.shade400),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.blue, width: 1.0),
@@ -77,35 +81,40 @@ class UploadVideoController extends GetxController {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
-                padding: EdgeInsets.symmetric(
-                    horizontal: 20, vertical: 10),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 minimumSize: Size(300, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
               onPressed: () {
-                if(isLoading==false){
+                if (videoName.text.isEmpty) {
+                  checkVideoName=true;
+                  update();
+                  return;
+                } else if (isLoading == false) {
+                  checkVideoName=false;
+                  update();
                   _uploadVideo();
                 }
               },
-              child:isLoading
+              child: isLoading
                   ? SizedBox(
-                width: 24,
-                height: 24,
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                  strokeWidth: 2,
-                ),
-              )
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        strokeWidth: 2,
+                      ),
+                    )
                   : Text(
-                'Upload',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+                      'Upload',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
             ),
           )
         ],
@@ -114,6 +123,7 @@ class UploadVideoController extends GetxController {
       return const CircularProgressIndicator();
     }
   }
+
   @override
   void onClose() {
     controller!.dispose();
@@ -128,14 +138,13 @@ class UploadVideoController extends GetxController {
   }
 
   _uploadVideo() async {
-    isLoading=true;
+    isLoading = true;
     update();
-    try{
+    try {
       downloadUrl = await uploadVideo();
-      downloadUrlImage= await getThumbnail();
+      downloadUrlImage = await getThumbnail();
       await saveVideoData(downloadUrl!);
-    }
-    catch(e){
+    } catch (e) {
       GetSnackBar(
         titleText: Text(
           'Error!',
@@ -151,16 +160,18 @@ class UploadVideoController extends GetxController {
       );
     }
   }
+
   getThumbnail() async {
     Reference imageRef = storage.ref().child('images/${DateTime.now()}');
-    File? thumbnailImage = await VideoCompress.getFileThumbnail(videoFile!.path);
+    File? thumbnailImage =
+        await VideoCompress.getFileThumbnail(videoFile!.path);
     MediaInfo? media = await VideoCompress.getMediaInfo(videoFile!.path);
-    duration= media.duration!/1000;
+    duration = media.duration! / 1000;
     Duration _duration = Duration(seconds: duration.toInt());
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     String twoDigitMinutes = twoDigits(_duration.inMinutes.remainder(60));
     String twoDigitSeconds = twoDigits(_duration.inSeconds.remainder(60));
-    finalDuration= "$twoDigitMinutes:$twoDigitSeconds";
+    finalDuration = "$twoDigitMinutes:$twoDigitSeconds";
     await imageRef.putFile(thumbnailImage);
     String downloadUrl = await imageRef.getDownloadURL();
     return downloadUrl;
@@ -171,8 +182,14 @@ class UploadVideoController extends GetxController {
       'url': downloadUrl,
       'timeStamp': FieldValue.serverTimestamp(),
       'name': videoName.text.trim(),
-      'downloadUrlImage':downloadUrlImage,
-      'duration':finalDuration
-    }).then((_){videoUrl=null;videoName.text=''; isLoading=false;zeroStateText='Video Uploaded Successfully'; update();}).catchError((error) => print("Failed to upload: $error"));
+      'downloadUrlImage': downloadUrlImage,
+      'duration': finalDuration
+    }).then((_) {
+      videoUrl = null;
+      videoName.text = '';
+      isLoading = false;
+      zeroStateText = 'Video Uploaded Successfully';
+      update();
+    }).catchError((error) => print("Failed to upload: $error"));
   }
 }
