@@ -102,9 +102,9 @@ addUser()  async {
         'Error!',
         'Please select your city',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-        icon: Icon(Icons.warning,color: Colors.white,)
+        backgroundColor: Colors.red,
+        colorText: Colors.black,
+        icon: Icon(Icons.warning,color: Colors.black,)
       );
     }
     else if(selecetedGrade=='Select your Grade'){
@@ -113,9 +113,9 @@ addUser()  async {
           'Error!',
           'Please select your grade',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-          icon: Icon(Icons.warning,color: Colors.white,)
+          backgroundColor: Colors.red,
+          colorText: Colors.black,
+          icon: Icon(Icons.warning,color: Colors.black,)
       );
     }
     else if(password.text!=confirmPassword.text){
@@ -124,9 +124,9 @@ addUser()  async {
           'Error!',
           'Password not match !',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-          icon: Icon(Icons.warning,color: Colors.white,)
+          backgroundColor: Colors.red,
+          colorText: Colors.black,
+          icon: Icon(Icons.warning,color: Colors.black,)
       );
     }
     else {

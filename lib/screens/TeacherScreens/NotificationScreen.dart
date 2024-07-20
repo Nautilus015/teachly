@@ -14,6 +14,7 @@ class NotificationScreen extends StatelessWidget {
         builder: (controller) =>
             Scaffold(
               appBar: AppBar(
+                automaticallyImplyLeading: false,
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
