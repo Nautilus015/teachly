@@ -32,7 +32,7 @@ class BooksScreen extends StatelessWidget {
                                 children: [
                                   Image.asset('assets/images/dunebuggy.png'),
                                   SizedBox(height: 8),
-                                  Text('Book 1', style: TextStyle(fontSize: 16)),
+                                  Text('Dune Buggy', style: TextStyle(fontSize: 16)),
                                 ],
                               ),
                             ),
@@ -52,7 +52,7 @@ class BooksScreen extends StatelessWidget {
                                 children: [
                                   Image.asset('assets/images/jake.png'),
                                   SizedBox(height: 8),
-                                  Text('Book 2', style: TextStyle(fontSize: 16)),
+                                  Text("Jake's Tale", style: TextStyle(fontSize: 16)),
                                 ],
                               ),
                             ),
@@ -76,7 +76,7 @@ class BooksScreen extends StatelessWidget {
                                 children: [
                                   Image.asset('assets/images/peg.png'),
                                   SizedBox(height: 8),
-                                  Text('Bookk 3', style: TextStyle(fontSize: 16)),
+                                  Text('Peg The Hen', style: TextStyle(fontSize: 16)),
                                 ],
                               ),
                             ),
@@ -96,7 +96,7 @@ class BooksScreen extends StatelessWidget {
                                 children: [
                                   Image.asset('assets/images/tinman.png'),
                                   SizedBox(height: 8),
-                                  Text('Book 4', style: TextStyle(fontSize: 16)),
+                                  Text('The Big Hit', style: TextStyle(fontSize: 16)),
                                 ],
                               ),
                             ),

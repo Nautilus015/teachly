@@ -137,37 +137,23 @@ class ProfileController extends GetxController {
       return;
     } else if (selecetedCity == 'Select your City') {
       zeroState();
-      Get.showSnackbar(
-        GetSnackBar(
-          titleText: Text(
-            'Error!',
-            style: TextStyle(fontSize: 20, color: Colors.white),
-          ),
-          messageText: Text('Please choose your city',
-              style: TextStyle(fontSize: 20, color: Colors.white)),
-          icon: const Icon(
-            Icons.dangerous,
-            color: Colors.white,
-          ),
-          duration: const Duration(seconds: 3),
-        ),
+      Get.snackbar(
+          'Error!',
+          'Please select your city',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.black,
+          icon: Icon(Icons.warning,color: Colors.black,)
       );
     } else if (selecetedGrade == 'Select your Grade') {
       zeroState();
-      Get.showSnackbar(
-        GetSnackBar(
-          titleText: Text(
-            'Error!',
-            style: TextStyle(fontSize: 20, color: Colors.white),
-          ),
-          messageText: Text('Please choose your grade',
-              style: TextStyle(fontSize: 20, color: Colors.white)),
-          icon: const Icon(
-            Icons.warning,
-            color: Colors.white,
-          ),
-          duration: const Duration(seconds: 3),
-        ),
+      Get.snackbar(
+          'Error!',
+          'Please select your grade',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.black,
+          icon: Icon(Icons.warning,color: Colors.black,)
       );
     } else {
       var user = await fireStore

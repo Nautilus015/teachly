@@ -44,18 +44,18 @@ class LoginController extends GetxController {
             'Error',
             'No user found for that email!',
             snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.green,
-            colorText: Colors.white,
-            icon: Icon(Icons.warning,color: Colors.white,)
+            backgroundColor: Colors.red,
+            colorText: Colors.black,
+            icon: Icon(Icons.warning,color: Colors.black,)
           );
         } else if (e.code == 'wrong-password') {
           Get.snackbar(
               'Error',
               'Wrong password provided for that user!',
               snackPosition: SnackPosition.BOTTOM,
-              backgroundColor: Colors.green,
-              colorText: Colors.white,
-              icon: Icon(Icons.warning,color: Colors.white,)
+              backgroundColor: Colors.red,
+              colorText: Colors.black,
+              icon: Icon(Icons.warning,color: Colors.black,)
           );
         }
         else{
@@ -63,9 +63,9 @@ class LoginController extends GetxController {
             'Error',
             'Wrong Email or Password!',
             snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.green,
-            colorText: Colors.white,
-            icon: Icon(Icons.warning,color: Colors.white,),
+            backgroundColor: Colors.red,
+            colorText: Colors.black,
+            icon: Icon(Icons.warning,color: Colors.black,),
           );
         }
       }

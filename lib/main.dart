@@ -24,9 +24,9 @@ Future<void> main() async {
     webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
   );
   runApp(GetMaterialApp(
-      // onInit: () {
-      //   secureScreen();
-      // },
+      onInit: () {
+        secureScreen();
+      },
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
   )
