@@ -98,56 +98,35 @@ addUser()  async {
     }
     else if(selecetedCity=='Select your City'){
       zeroState();
-      Get.showSnackbar(
-              GetSnackBar(
-                titleText: Text(
-                  'Error!',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                ),
-                messageText: Text('Please choose your city',
-                    style: TextStyle(fontSize: 20, color: Colors.white)),
-                icon: const Icon(
-                  Icons.dangerous,
-                  color: Colors.white,
-                ),
-                duration: const Duration(seconds: 3),
-              ),
-            );
+      Get.snackbar(
+        'Error!',
+        'Please select your city',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+        icon: Icon(Icons.warning,color: Colors.white,)
+      );
     }
     else if(selecetedGrade=='Select your Grade'){
       zeroState();
-      Get.showSnackbar(
-        GetSnackBar(
-          titleText: Text(
-            'Error!',
-            style: TextStyle(fontSize: 20, color: Colors.white),
-          ),
-          messageText: Text('Please choose your grade',
-              style: TextStyle(fontSize: 20, color: Colors.white)),
-          icon: const Icon(
-            Icons.warning,
-            color: Colors.white,
-          ),
-          duration: const Duration(seconds: 3),
-        ),
+      Get.snackbar(
+          'Error!',
+          'Please select your grade',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          icon: Icon(Icons.warning,color: Colors.white,)
       );
     }
     else if(password.text!=confirmPassword.text){
       zeroState();
-      Get.showSnackbar(
-        GetSnackBar(
-          titleText: Text(
-            'Error!',
-            style: TextStyle(fontSize: 20, color: Colors.white),
-          ),
-          messageText: Text('Password not match!',
-              style: TextStyle(fontSize: 20, color: Colors.white)),
-          icon: const Icon(
-            Icons.warning,
-            color: Colors.white,
-          ),
-          duration: const Duration(seconds: 3),
-        ),
+      Get.snackbar(
+          'Error!',
+          'Password not match !',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          icon: Icon(Icons.warning,color: Colors.white,)
       );
     }
     else {
@@ -158,55 +137,49 @@ addUser()  async {
           } on FirebaseAuthException catch (e) {
             if (e.code == 'weak-password') {
               zeroState();
-              Get.showSnackbar(
-                GetSnackBar(
-                  titleText: Text(
-                    'Error!',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),
-                  messageText: Text('The password provided is too weak!',
-                      style: TextStyle(fontSize: 20, color: Colors.white)),
-                  icon: const Icon(
-                    Icons.warning,
-                    color: Colors.white,
-                  ),
-                  duration: const Duration(seconds: 3),
-                ),
+              Get.snackbar(
+                  'Error!',
+                  'The password provided is too weak !',
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: Colors.green,
+                  colorText: Colors.white,
+                  icon: Icon(Icons.warning,color: Colors.white,)
               );
             } else if (e.code == 'email-already-in-use') {
               zeroState();
-              Get.showSnackbar(
-                GetSnackBar(
-                  titleText: Text(
-                    'Error!',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),
-                  messageText: Text('The account already exists for that email!',
-                      style: TextStyle(fontSize: 20, color: Colors.white)),
-                  icon: const Icon(
-                    Icons.warning,
-                    color: Colors.white,
-                  ),
-                  duration: const Duration(seconds: 3),
-                ),
+              Get.snackbar(
+                  'Error!',
+                  'The account already exists for that email !',
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: Colors.green,
+                  colorText: Colors.white,
+                  icon: Icon(Icons.warning,color: Colors.white,)
               );
             } else {
               zeroState();
-              Get.showSnackbar(
-                GetSnackBar(
-                  titleText: Text(
-                    'Error!',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),
-                  messageText: Text(e.message.toString(),
-                      style: TextStyle(fontSize: 20, color: Colors.white)),
-                  icon: const Icon(
-                    Icons.warning,
-                    color: Colors.white,
-                  ),
-                  duration: const Duration(seconds: 3),
-                ),
+              Get.snackbar(
+                  'Error!',
+                  e.message.toString(),
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: Colors.green,
+                  colorText: Colors.white,
+                  icon: Icon(Icons.warning,color: Colors.white,)
               );
+              // Get.showSnackbar(
+              //   GetSnackBar(
+              //     titleText: Text(
+              //       'Error!',
+              //       style: TextStyle(fontSize: 20, color: Colors.white),
+              //     ),
+              //     messageText: Text(e.message.toString(),
+              //         style: TextStyle(fontSize: 20, color: Colors.white)),
+              //     icon: const Icon(
+              //       Icons.warning,
+              //       color: Colors.white,
+              //     ),
+              //     duration: const Duration(seconds: 3),
+              //   ),
+              // );
             }
           }
     }

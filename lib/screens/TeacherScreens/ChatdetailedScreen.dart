@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teachly/screens/bottomnavScreen.dart';
 import 'package:teachly/controllers/ChatTeacherController.dart';
-import 'ChatScreen.dart';
+import 'package:teachly/screens/bottomnavScreen.dart';
 
 class ChatdetailedScreen extends StatelessWidget {
   const ChatdetailedScreen({Key? key}) : super(key: key);
@@ -22,14 +21,6 @@ class ChatdetailedScreen extends StatelessWidget {
                   },
                 ),
                 title: Text(controller.userName),
-                actions: [
-                  IconButton(
-                    icon: Icon(Icons.more_vert),
-                    onPressed: () {
-                      // Add action for more options
-                    },
-                  ),
-                ],
               ),
               body: Column(
                 children: [

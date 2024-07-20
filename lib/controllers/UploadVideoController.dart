@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -144,20 +143,28 @@ class UploadVideoController extends GetxController {
       downloadUrl = await uploadVideo();
       downloadUrlImage = await getThumbnail();
       await saveVideoData(downloadUrl!);
-    } catch (e) {
-      GetSnackBar(
-        titleText: Text(
+    } catch(e){
+      Get.snackbar(
           'Error!',
-          style: TextStyle(fontSize: 20, color: Colors.white),
-        ),
-        messageText: Text(e.toString(),
-            style: TextStyle(fontSize: 20, color: Colors.white)),
-        icon: const Icon(
-          Icons.dangerous,
-          color: Colors.white,
-        ),
-        duration: const Duration(seconds: 3),
+          e.toString(),
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          icon: Icon(Icons.warning,color: Colors.white,)
       );
+      // GetSnackBar(
+      //   titleText: Text(
+      //     'Error!',
+      //     style: TextStyle(fontSize: 20, color: Colors.white),
+      //   ),
+      //   messageText: Text(e.toString(),
+      //       style: TextStyle(fontSize: 20, color: Colors.white)),
+      //   icon: const Icon(
+      //     Icons.warning,
+      //     color: Colors.white,
+      //   ),
+      //   duration: const Duration(seconds: 3),
+      // );
     }
   }
 

@@ -40,50 +40,32 @@ class LoginController extends GetxController {
         zeroState();
         update();
         if (e.code == 'user-not-found') {
-          Get.showSnackbar(
-            GetSnackBar(
-              titleText: Text('Error!',style: TextStyle(
-                fontSize: 20,
-                color: Colors.white
-              ),),
-              messageText: Text('No user found for that email!',style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white
-              )),
-              icon: const Icon(Icons.warning,color: Colors.white,),
-              duration: const Duration(seconds: 3),
-            ),
+          Get.snackbar(
+            'Error',
+            'No user found for that email!',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.green,
+            colorText: Colors.white,
+            icon: Icon(Icons.warning,color: Colors.white,)
           );
         } else if (e.code == 'wrong-password') {
-          Get.showSnackbar(
-            GetSnackBar(
-              titleText: Text('Error!',style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white
-              )),
-              messageText: Text('Wrong password provided for that user!',style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white
-              )),
-              icon: const Icon(Icons.warning,color: Colors.white,),
-              duration: const Duration(seconds: 3),
-            ),
+          Get.snackbar(
+              'Error',
+              'Wrong password provided for that user!',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.green,
+              colorText: Colors.white,
+              icon: Icon(Icons.warning,color: Colors.white,)
           );
         }
         else{
-          Get.showSnackbar(
-            GetSnackBar(
-              titleText: Text('Error!',style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white
-              )),
-              messageText: Text('Wrong Email or Password!',style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white
-              )),
-              icon: const Icon(Icons.warning,color: Colors.white,),
-              duration: const Duration(seconds: 3),
-            ),
+          Get.snackbar(
+            'Error',
+            'Wrong Email or Password!',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.green,
+            colorText: Colors.white,
+            icon: Icon(Icons.warning,color: Colors.white,),
           );
         }
       }
