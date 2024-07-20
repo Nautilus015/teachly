@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import '../controllers/VideoPlayController.dart';
-import 'bottomnavScreen.dart';
+import 'BottomNavigationScreen.dart';
 
 class VideoPlay extends StatelessWidget {
   @override
@@ -18,7 +18,7 @@ class VideoPlay extends StatelessWidget {
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () {
-                Get.off(() => bottomnavScreen());
+                Get.off(() => BottomNavigationScreen());
               },
             ),
             title: const Text('Play Video'),

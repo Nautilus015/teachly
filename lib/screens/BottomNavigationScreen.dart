@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teachly/screens/LoginScreen.dart';
-import '../controllers/bottomnavController.dart';
+import '../controllers/BottomNavigationController.dart';
 
-class bottomnavScreen extends StatelessWidget {
-  const bottomnavScreen({super.key});
+class BottomNavigationScreen extends StatelessWidget {
+  const BottomNavigationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<NavigationController>(
-      init: NavigationController(),
+    return GetBuilder<BottomNavigationController>(
+      init: BottomNavigationController(),
       builder: (controller) {
         return Scaffold(
             bottomNavigationBar: Obx(
@@ -21,7 +21,7 @@ class bottomnavScreen extends StatelessWidget {
                         destinations: [
               NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
               NavigationDestination(
-                  icon: Icon(Icons.chat), label: 'Chat'),
+                  icon: Icon(Icons.notifications), label: 'Notifications'),
               NavigationDestination(
                 icon:  Icon(Icons.book), label: 'Books'),
               NavigationDestination(

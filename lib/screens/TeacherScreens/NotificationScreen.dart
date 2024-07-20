@@ -1,26 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teachly/controllers/ChatTeacherController.dart';
-import 'package:teachly/screens/bottomnavScreen.dart';
+import 'package:teachly/controllers/NotificationController.dart';
+import 'package:teachly/screens/BottomNavigationScreen.dart';
 
-class ChatdetailedScreen extends StatelessWidget {
-  const ChatdetailedScreen({Key? key}) : super(key: key);
+class NotificationScreen extends StatelessWidget {
+  const NotificationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ChatDetailedController>(
-        init: ChatDetailedController(),
+    return GetBuilder<NotificationController>(
+        init: NotificationController(),
         builder: (controller) =>
             Scaffold(
               appBar: AppBar(
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
-                    Get.to(() => bottomnavScreen());
+                    Get.to(() => BottomNavigationScreen());
                   },
                 ),
-                title: Text(controller.userName),
+                title: Text('Notification'),
               ),
               body: Column(
                 children: [
@@ -29,28 +29,6 @@ class ChatdetailedScreen extends StatelessWidget {
                     child: Container(
                       child: Column(
                         children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                // This container will hold the chat messages
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text('jovany'),
-                                ),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        width: 2,
-                                        color: Colors.blue,
-                                        style: BorderStyle.solid),
-                                    borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(20),
-                                        bottomLeft: Radius.circular(20),
-                                        bottomRight: Radius.circular(20))),
-                              ),
-                            ),
-                          ),
                           Expanded(
                             child: Align(
                               child: Padding(
@@ -137,7 +115,7 @@ class ChatdetailedScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Expanded(
+                  controller.isTeacher ? Expanded(
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.all(8.0),
@@ -166,7 +144,7 @@ class ChatdetailedScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ),
+                  ) : Text(''),
                 ],
               ),
             ));

@@ -5,16 +5,16 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:intl/intl.dart';
 
+import '../models/UserModel.dart';
 
-class ChatDetailedController extends GetxController {
+
+class NotificationController extends GetxController {
   final fireStore = FirebaseFirestore.instance;
   TextEditingController messageText = TextEditingController();
   TextEditingController message = TextEditingController();
   final auth = FirebaseAuth.instance;
+  bool isTeacher = false;
   late User signedinUser;
-  dynamic theDataFromPreviousPage = Get.arguments;
-  String userName = '';
-  String receiverEmail = '';
   DateTime now = DateTime.now();
   String dayTime = '';
   RxList<String> dates = <String>[].obs;
@@ -36,7 +36,6 @@ class ChatDetailedController extends GetxController {
     await fireStore.collection('messages').add({
       'uid': auth.currentUser?.uid,
       'emailSender': auth.currentUser!.email,
-      'emailReceiver': receiverEmail,
       'date': '$hour:$minute $dayTime',
       'message': messageText.text.trim(),
       'createdOn': FieldValue.serverTimestamp()
@@ -56,8 +55,18 @@ class ChatDetailedController extends GetxController {
     }
   }
 
-  void getCurrentUser() {
-    userName = theDataFromPreviousPage[0];
-    receiverEmail = theDataFromPreviousPage[1];
+  getCurrentUser() async {
+    var users = await FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: auth.currentUser?.email)
+        .get();
+    var user =UserModel.fromJson(users.docs.first.data());
+    if(user.uid=='7331f0mjgNaUdb2ux9k1ISC0Wv02'){
+      isTeacher=true;
+    }
+    else{
+      isTeacher=false;
+    }
+    update();
   }
 }

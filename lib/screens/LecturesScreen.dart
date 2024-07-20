@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:teachly/screens/VideoPlay.dart';
 import '../controllers/LecturesController.dart';
 import 'UploadVideoScreen.dart';
+import 'VideoPlay.dart';
 
 class LecturesScreen extends StatelessWidget {
   @override

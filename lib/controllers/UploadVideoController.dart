@@ -152,6 +152,16 @@ class UploadVideoController extends GetxController {
           colorText: Colors.white,
           icon: Icon(Icons.warning,color: Colors.white,)
       );
+    }
+     catch (e) {
+       Get.snackbar(
+           'Error!',
+           e.toString(),
+           snackPosition: SnackPosition.BOTTOM,
+           backgroundColor: Colors.green,
+           colorText: Colors.white,
+           icon: Icon(Icons.warning,color: Colors.white,)
+       );
       // GetSnackBar(
       //   titleText: Text(
       //     'Error!',

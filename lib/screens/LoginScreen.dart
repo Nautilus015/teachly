@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teachly/controllers/LoginController.dart';
 import 'package:teachly/screens/SignupScreen.dart';
-import 'forgotpwScreen.dart';
+import 'ForgotPasswordScreen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -105,7 +105,7 @@ class LoginScreen extends StatelessWidget {
                             alignment: Alignment.centerRight,
                             child: TextButton(
                                 onPressed: () {
-                                  Get.to(() => forgotpwScreen());
+                                  Get.to(() => ForgotPasswordScreen());
                                 },
                                 child: Text('Forgot Password?',
                                     style: TextStyle(
@@ -136,14 +136,24 @@ class LoginScreen extends StatelessWidget {
                             controller.update();
                           }
                         },
-                        child: Text(
-                          'Login',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        child: controller.isLoading
+                            ? SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white),
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : Text(
+                                'Login',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                       ),
                     ),
                     Row(

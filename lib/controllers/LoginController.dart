@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teachly/screens/ProfileScreen.dart';
-import 'package:teachly/screens/bottomnavScreen.dart';
-import '../screens/bottomnavScreen.dart';
+import 'package:teachly/screens/BottomNavigationScreen.dart';
+import '../screens/BottomNavigationScreen.dart';
 
 class LoginController extends GetxController {
   TextEditingController emailValue = TextEditingController();
@@ -33,7 +33,7 @@ class LoginController extends GetxController {
             email: emailValue.text, password: passValue.text);
         if (user != null) {
           zeroState();
-          Get.off(() => bottomnavScreen());
+          Get.off(() => BottomNavigationScreen());
         }
       }
       on FirebaseAuthException catch (e) {
@@ -70,5 +70,6 @@ class LoginController extends GetxController {
         }
       }
     }
+    update();
   }
 }
