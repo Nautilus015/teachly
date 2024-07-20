@@ -35,26 +35,28 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   CircleAvatar(
                       radius: 60,
-                      backgroundImage:
-                      controller.imageFile !=null
-                          ? FileImage(controller.imageFile!):
-                      controller.circleAvatarImage !=''&&controller.circleAvatarImage!=null?
-                      NetworkImage(controller.circleAvatarImage):
-                         AssetImage('assets/images/image.png')),
+                      backgroundImage: controller.imageFile != null
+                          ? FileImage(controller.imageFile!)
+                          : controller.circleAvatarImage != '' &&
+                                  controller.circleAvatarImage != null
+                              ? NetworkImage(controller.circleAvatarImage)
+                              : AssetImage('assets/images/image.png')),
                   Visibility(
-                    visible: controller.isEditMode ? true:false,
+                    visible: controller.isEditMode ? true : false,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 100),
                       child: Container(
-                        height: 40,width: 20,
+                        height: 40,
+                        width: 20,
                         decoration: BoxDecoration(
                             color: Colors.blue, shape: BoxShape.circle),
                         child: IconButton(
                           icon: Icon(Icons.add_a_photo),
-                          color: Colors.white, onPressed: () {
-                          controller.pickImage();
-                          controller.update();
-                        },
+                          color: Colors.white,
+                          onPressed: () {
+                            controller.pickImage();
+                            controller.update();
+                          },
                         ),
                       ),
                     ),
@@ -66,48 +68,51 @@ class ProfileScreen extends StatelessWidget {
                       color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child:!controller.isEditMode? Row(
-                        children: [
-                        Icon(Icons.person, color: Colors.blue),
-                      SizedBox(width: 16),
-                      Expanded(
-                        child: Text(controller.userName),
-                      ),]):
-                    Row(
-                      children: [
-                        Icon(Icons.person, color: Colors.blue),
-                        Expanded(
-                          child: controller.isEditMode
-                              ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextField(
-                                    decoration: InputDecoration(
-                                      errorText: controller.validates[0]
-                                          ? "First name is required"
-                                          : null,
-                                    ),
-                                    controller: controller.firstNameController,
-                                  ),
-                              )
-                              : Text(controller.firstName),
-                        ),
-                        Expanded(
-                          child: controller.isEditMode
-                              ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextField(
-                                    decoration: InputDecoration(
-                                      errorText: controller.validates[1]
-                                          ? "Last name is required"
-                                          : null,
-                                    ),
-                                    controller: controller.lastNameController,
-                                  ),
-                              )
-                              : Text(controller.lastName),
-                        ),
-                      ],
-                    ),
+                    child: !controller.isEditMode
+                        ? Row(children: [
+                            Icon(Icons.person, color: Colors.blue),
+                            SizedBox(width: 16),
+                            Expanded(
+                              child: Text(controller.userName),
+                            ),
+                          ])
+                        : Row(
+                            children: [
+                              Icon(Icons.person, color: Colors.blue),
+                              Expanded(
+                                child: controller.isEditMode
+                                    ? Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: TextField(
+                                          decoration: InputDecoration(
+                                            errorText: controller.validates[0]
+                                                ? "First name is required"
+                                                : null,
+                                          ),
+                                          controller:
+                                              controller.firstNameController,
+                                        ),
+                                      )
+                                    : Text(controller.firstName),
+                              ),
+                              Expanded(
+                                child: controller.isEditMode
+                                    ? Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: TextField(
+                                          decoration: InputDecoration(
+                                            errorText: controller.validates[1]
+                                                ? "Last name is required"
+                                                : null,
+                                          ),
+                                          controller:
+                                              controller.lastNameController,
+                                        ),
+                                      )
+                                    : Text(controller.lastName),
+                              ),
+                            ],
+                          ),
                   ),
                   SizedBox(height: 16),
                   Container(
@@ -265,8 +270,8 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   controller.isEditMode
                       ? Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Align(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Align(
                             alignment: Alignment.center,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -292,8 +297,9 @@ class ProfileScreen extends StatelessWidget {
                                       width: 24,
                                       height: 24,
                                       child: CircularProgressIndicator(
-                                        valueColor: AlwaysStoppedAnimation<Color>(
-                                            Colors.white),
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Colors.white),
                                         strokeWidth: 2,
                                       ),
                                     )
@@ -307,8 +313,32 @@ class ProfileScreen extends StatelessWidget {
                                     ),
                             ),
                           ),
-                      )
-                      : Text('')
+                        )
+                      : Text(''),
+                  SizedBox(height: 20),
+                  Visibility(
+                    visible: controller.isEditMode ? false : true,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () {
+                        controller.signOut();
+                      },
+                      child: Text(
+                        'Sign Out',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

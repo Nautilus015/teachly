@@ -6,31 +6,31 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:teachly/screens/LoginScreen.dart';
 import '../models/UserModel.dart';
 
 class ProfileController extends GetxController {
   final fireStore = FirebaseFirestore.instance;
-  final auth=FirebaseAuth.instance;
+  final auth = FirebaseAuth.instance;
   final storage = FirebaseStorage.instance;
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController guardiansPhoneNumberController = TextEditingController();
+  TextEditingController guardiansPhoneNumberController =
+      TextEditingController();
   String currentUserImage = '';
-  String firstName='';
-  String lastName='';
-  String phoneNumber='';
-  String guardianPhoneNumber='';
-  String circleAvatarImage='';
+  String firstName = '';
+  String lastName = '';
+  String phoneNumber = '';
+  String guardianPhoneNumber = '';
+  String circleAvatarImage = '';
   bool isEditMode = false;
   bool isLoading = false;
   bool isClicked = false;
   File? imageFile;
-  String networkImage='';
-  List<bool> validates = [
-    false,false,false,false
-  ];
-  String imageUrl='';
+  String networkImage = '';
+  List<bool> validates = [false, false, false, false];
+  String imageUrl = '';
   Color selectColor = Colors.grey;
   Color selectColorTwo = Colors.grey;
   List<String> citiesList = [
@@ -71,8 +71,9 @@ class ProfileController extends GetxController {
   ];
   String selecetedCity = 'Select your City';
   String selecetedGrade = 'Select your Grade';
-  String userName='';
-  zeroState () {
+  String userName = '';
+
+  zeroState() {
     isLoading = false;
     isClicked = false;
   }
@@ -82,34 +83,49 @@ class ProfileController extends GetxController {
     super.onInit();
     getCurrentUser();
   }
+
   pickImage() async {
     final ImagePicker pick = ImagePicker();
     XFile? file =
-    await pick.pickImage(source: ImageSource.gallery); // Pick an image.
+        await pick.pickImage(source: ImageSource.gallery); // Pick an image.
     imageFile = File(file!.path);
     update();
   }
+
   uploadImage() async {
-    if(imageFile==null) return;
-    final fileName=imageFile!.path.split('/').last;
-    final ref=storage.ref().child('uploads/$fileName');
-    await ref.putFile(imageFile!).then((TaskSnapshot taskSnapshot) async{
-       imageUrl=await taskSnapshot.ref.getDownloadURL();
+    if (imageFile == null) return;
+    final fileName = imageFile!.path.split('/').last;
+    final ref = storage.ref().child('uploads/$fileName');
+    await ref.putFile(imageFile!).then((TaskSnapshot taskSnapshot) async {
+      imageUrl = await taskSnapshot.ref.getDownloadURL();
       return imageUrl;
-    }).catchError((e){
+    }).catchError((e) {
       print(e);
     });
   }
-  equalsControllers(){
-    imageFile=null;
-    firstNameController.text= firstName;
-    lastNameController.text= lastName;
-    phoneNumberController.text= phoneNumber;
-    guardiansPhoneNumberController.text= guardianPhoneNumber;
+
+  signOut() async {
+    await auth.signOut();
+      Get.snackbar(
+        'Success',
+        'You have been signed out successfully',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+      Get.to(LoginScreen());
+  }
+
+  equalsControllers() {
+    imageFile = null;
+    firstNameController.text = firstName;
+    lastNameController.text = lastName;
+    phoneNumberController.text = phoneNumber;
+    guardiansPhoneNumberController.text = guardianPhoneNumber;
     update();
   }
-  checkUser() async {
 
+  checkUser() async {
     validates[0] = firstName.isEmpty;
     validates[1] = lastName.isEmpty;
     validates[2] = phoneNumber.isEmpty;
@@ -119,8 +135,7 @@ class ProfileController extends GetxController {
       zeroState();
       update();
       return;
-    }
-    else if(selecetedCity=='Select your City'){
+    } else if (selecetedCity == 'Select your City') {
       zeroState();
       Get.showSnackbar(
         GetSnackBar(
@@ -137,8 +152,7 @@ class ProfileController extends GetxController {
           duration: const Duration(seconds: 3),
         ),
       );
-    }
-    else if(selecetedGrade=='Select your Grade'){
+    } else if (selecetedGrade == 'Select your Grade') {
       zeroState();
       Get.showSnackbar(
         GetSnackBar(
@@ -156,24 +170,26 @@ class ProfileController extends GetxController {
         ),
       );
     } else {
-      var user = await fireStore.collection('users').where('email',isEqualTo: auth.currentUser!.email).get();
-      if(user.docs.isNotEmpty){
-        if(imageFile==null){
-          imageUrl=circleAvatarImage;
-        }
-        else{
-         await uploadImage();
+      var user = await fireStore
+          .collection('users')
+          .where('email', isEqualTo: auth.currentUser!.email)
+          .get();
+      if (user.docs.isNotEmpty) {
+        if (imageFile == null) {
+          imageUrl = circleAvatarImage;
+        } else {
+          await uploadImage();
         }
         var docId = user.docs.first.id;
-       await fireStore.collection('users').doc(docId).update({
+        await fireStore.collection('users').doc(docId).update({
           'firstName': firstNameController.text.trim(),
-          'lastName':lastNameController.text.trim(),
-          'phoneNumber':phoneNumberController.text.trim(),
-          'guardiansPhoneNumber':guardiansPhoneNumberController.text.trim(),
-          'city':selecetedCity,
-          'grade':selecetedGrade,
-          'circleAvatarImage':imageUrl,
-        }).then((value){
+          'lastName': lastNameController.text.trim(),
+          'phoneNumber': phoneNumberController.text.trim(),
+          'guardiansPhoneNumber': guardiansPhoneNumberController.text.trim(),
+          'city': selecetedCity,
+          'grade': selecetedGrade,
+          'circleAvatarImage': imageUrl,
+        }).then((value) {
           zeroState();
           getCurrentUser();
           isEditMode = false;
@@ -188,16 +204,15 @@ class ProfileController extends GetxController {
         .collection('users')
         .where('email', isEqualTo: auth.currentUser?.email)
         .get();
-    var user =UserModel.fromJson(users.docs.first.data());
+    var user = UserModel.fromJson(users.docs.first.data());
     circleAvatarImage = user.circleAvatarImage!;
-    firstName =user.firstName!;
-    lastName =user.lastName!;
-    userName='$firstName $lastName';
+    firstName = user.firstName!;
+    lastName = user.lastName!;
+    userName = '$firstName $lastName';
     phoneNumber = user.phoneNumber!;
     guardianPhoneNumber = user.guardiansPhoneNumber!;
     selecetedCity = user.city!;
     selecetedGrade = user.grade!;
     update();
   }
-
 }

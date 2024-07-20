@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:teachly/screens/LecturesScreen.dart';
 import 'package:teachly/screens/TeacherScreens/ChatScreen.dart';
 import 'package:teachly/screens/ProfileScreen.dart';
-import 'package:teachly/screens/SettingsScreen.dart';
 import '../models/UserModel.dart';
 import '../screens/BooksScreen.dart';
 
