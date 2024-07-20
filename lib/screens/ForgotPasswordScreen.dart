@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teachly/controllers/forgotpwController.dart';
+import 'package:teachly/controllers/ForgotPasswordController.dart';
 
-class forgotpwScreen extends StatelessWidget {
-  const forgotpwScreen({super.key});
+class ForgotPasswordScreen extends StatelessWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<forgotpwController>(
-      init: forgotpwController(),
+    return GetBuilder<ForgotPasswordController>(
+      init: ForgotPasswordController(),
       builder: (controller) {
         return Scaffold(
             appBar: AppBar(

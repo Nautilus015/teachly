@@ -7,6 +7,8 @@ class LecturesController extends GetxController{
   final auth=FirebaseAuth.instance;
   final fireStore = FirebaseFirestore.instance;
   String userName='';
+  bool isTeacher=false;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -20,6 +22,12 @@ class LecturesController extends GetxController{
         .get();
     var user =UserModel.fromJson(users.docs.first.data());
     userName='${user.firstName!} ${user.lastName!}';
+    if(user.uid=='7331f0mjgNaUdb2ux9k1ISC0Wv02'){
+      isTeacher=true;
+    }
+    else{
+      isTeacher=false;
+    }
     update();
   }
 }

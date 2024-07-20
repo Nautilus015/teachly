@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teachly/screens/ProfileScreen.dart';
-import 'package:teachly/screens/bottomnavScreen.dart';
-import '../screens/bottomnavScreen.dart';
+import 'package:teachly/screens/BottomNavigationScreen.dart';
+import '../screens/BottomNavigationScreen.dart';
 
 class LoginController extends GetxController {
   TextEditingController emailValue = TextEditingController();
@@ -11,13 +11,20 @@ class LoginController extends GetxController {
   bool emailValidate = false;
   bool passValidate = false;
   bool light = false;
+  bool isLoading = false;
+  bool isClicked = false;
   final auth = FirebaseAuth.instance;
-  
+  zeroState (){
+    isLoading = false;
+    isClicked = false;
+  }
   loginWithEmail() async {
     emailValidate = emailValue.text.isEmpty;
     passValidate=emailValue.text.isEmpty;
     update();
     if(emailValidate||passValidate){
+      zeroState();
+      update();
       return;
     }
     else {
@@ -25,10 +32,13 @@ class LoginController extends GetxController {
         final user = await auth.signInWithEmailAndPassword(
             email: emailValue.text, password: passValue.text);
         if (user != null) {
-          Get.off(() => bottomnavScreen());
+          zeroState();
+          Get.off(() => BottomNavigationScreen());
         }
       }
       on FirebaseAuthException catch (e) {
+        zeroState();
+        update();
         if (e.code == 'user-not-found') {
           Get.snackbar(
             'Error',
@@ -60,5 +70,6 @@ class LoginController extends GetxController {
         }
       }
     }
+    update();
   }
 }

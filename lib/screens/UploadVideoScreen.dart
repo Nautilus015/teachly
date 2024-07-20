@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teachly/controllers/UploadVideoController.dart';
-import 'package:teachly/screens/bottomnavScreen.dart';
+import 'package:teachly/screens/BottomNavigationScreen.dart';
 
 class UploadVideoScreen extends StatelessWidget {
 
@@ -19,7 +19,7 @@ class UploadVideoScreen extends StatelessWidget {
               color: Colors.white,
             ),
             onPressed: () {
-              Get.off(bottomnavScreen());
+              Get.off(BottomNavigationScreen());
             },
           ),
           backgroundColor: Colors.blue,

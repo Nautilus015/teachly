@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import '../controllers/LecturesController.dart';
 import 'UploadVideoScreen.dart';
+import 'VideoPlay.dart';
 
 class LecturesScreen extends StatelessWidget {
   @override
@@ -11,11 +12,11 @@ class LecturesScreen extends StatelessWidget {
     return GetBuilder<LecturesController>(
       init: LecturesController(),
       builder: (controller) => Scaffold(
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton:controller.isTeacher? FloatingActionButton(
           backgroundColor: Colors.blue,
           onPressed: () => Get.to(() => UploadVideoScreen()),
           child: Icon(color: Colors.white, Icons.video_library),
-        ),
+        ):null,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.blue,
@@ -31,49 +32,71 @@ class LecturesScreen extends StatelessWidget {
               StreamBuilder(
                   stream: controller.fireStore.collection('videos').snapshots(),
                   builder: (context, snapshot) {
-                    List<Widget> videoWidgets=[];
-                    if(snapshot.connectionState==ConnectionState.waiting){
+                    List<Widget> videoWidgets = [];
+                    if (snapshot.connectionState == ConnectionState.waiting) {
                       const CircularProgressIndicator();
-                    }
-                    else{
-                      final videos=snapshot.data!.docs.reversed.toList();
-                      for(var video in videos){
-                        final videoWidget=Container(
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.network(video['downloadUrlImage']),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Bassirou Gueye',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                    } else {
+                      final videos = snapshot.data!.docs.reversed.toList();
+                      for (var video in videos) {
+                        final videoWidget = Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: Colors.green.shade300,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Image.network(video['downloadUrlImage']),
+                                const SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      video['name'],
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    IconButton(
+                                      style: IconButton.styleFrom(
+                                          backgroundColor: Colors.black),
+                                      onPressed: () {
+                                        Get.to(() => VideoPlay(), arguments: [
+                                          video['url'],
+                                          video['name']
+                                        ]);
+                                      },
+                                      icon: Icon(Icons.play_arrow_rounded),
+                                      color: Colors.white,
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  video['duration'].toString(),
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                ),
+                              ],
+                            ),
                           ),
                         );
                         // Row(
                         //   children: [
                         //     Text(video['name']),
-                        //     IconButton(onPressed: (){
-                        //       Get.to(()=>VideoPlay(),arguments: [video['url'],video['name']]);
-                        //     }, icon: Icon(Icons.play_arrow_rounded)),
-                        //
                         //     Expanded(child: Image.network(video['downloadUrlImage']))
                         //   ],
                         // );
-
                         videoWidgets.add(videoWidget);
                       }
                     }
-                    return Expanded(child: ListView(
+                    return Expanded(
+                        child: ListView(
                       children: videoWidgets,
                     ));
                     // return Column(
@@ -101,8 +124,7 @@ class LecturesScreen extends StatelessWidget {
                     //     )),
                     //   ],
                     // );
-                  }
-                  ),
+                  }),
             ],
           ),
         ),

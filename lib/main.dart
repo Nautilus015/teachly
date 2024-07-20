@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
-import 'package:teachly/screens/splashScreen.dart';
+import 'package:teachly/screens/SplashScreen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,11 +24,11 @@ Future<void> main() async {
     webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
   );
   runApp(GetMaterialApp(
-      onInit: () {
-        secureScreen();
-      },
+      // onInit: () {
+      //   secureScreen();
+      // },
       debugShowCheckedModeBanner: false,
-      home: splashScreen(),
+      home: SplashScreen(),
   )
   );
 }
